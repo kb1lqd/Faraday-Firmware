@@ -62,7 +62,7 @@ void Faraday_SRAM_Write_Byte(unsigned char byte, unsigned int address);
  *	@retval rx_byte The function returns the retrieved data byte from the SRAM memory location.
  *
  */
-unsigned char Faraday_SRAM_Read_Byte(unsigned int address);
+//unsigned char Faraday_SRAM_Read_Byte(unsigned int address);
 
 
 /** @brief Retrieve SRAM IC settings

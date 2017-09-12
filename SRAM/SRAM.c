@@ -62,35 +62,6 @@ void Faraday_SRAM_Write_Byte(unsigned char byte, unsigned int address){
 	Faraday_SRAM_CS_Disable();
 }
 
-unsigned char Faraday_SRAM_Read_Byte(unsigned int address){
-	unsigned char address_h, address_l;
-
-	//Select the SRAM chip select
-	Faraday_SRAM_CS_Enable();
-	__delay_cycles(50); //Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
-
-	//Shift the address INTEGER into high and low CHAR bytes
-	address_h = (address>>8) & 0xFF;
-	address_l = address & 0xFF;
-
-	//Send the READ command
-	spi_tx(SRAM_READ);
-
-	//Send Address to be written to
-	spi_tx(address_h);
-	spi_tx(address_l);
-
-	//Send dummy byte to shift SPI registers out of SRAM into RX CC430
-	spi_tx(0x00); //dummy
-
-	__delay_cycles(50); //Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
-	Faraday_SRAM_CS_Disable();
-
-	unsigned char rx_byte;
-	rx_byte = UCB0RXBUF;
-	return rx_byte;
-}
-
 unsigned char Faraday_SRAM_Read_Settings(void){
 	// 0 = Byte Mode
 	// 1 = Page Mode
@@ -234,13 +205,7 @@ void Faraday_SRAM_Read_Sequential_Bytes(unsigned int count, unsigned int sram_ad
 
 
 		for(i=0;i<count;i++){
-			//Send dummy byte to shift SPI registers out of SRAM into RX CC430
-			spi_tx(0x00); //dummy
-
-			__delay_cycles(50);
-			test2 = UCB0RXBUF;
-			buffer_address[i] = test2;//UCB0RXBUF;
-
+			buffer_address[i] = spi_rx_byte(50);
 		}
 		__delay_cycles(50);//Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
 		Faraday_SRAM_CS_Disable();

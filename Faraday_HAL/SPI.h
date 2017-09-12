@@ -19,5 +19,6 @@
  *
  */
 void spi_tx(unsigned char tx);
+unsigned char spi_rx_byte(unsigned char delay_cycles);
 
 #endif /* FARADAY_HAL_SPI_H_ */

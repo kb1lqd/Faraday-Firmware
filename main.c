@@ -24,6 +24,8 @@
 #include "Applications/HAB/App_HAB.h"
 #include "Applications/RF_Packet/rf_packet.h"
 
+#include "Scratch/scratch_sram.h"
+
 //DELETE ME
 #include "scratch_flash.h"
 
@@ -88,6 +90,9 @@ int main(void) {
 	//Check for RESET Faults on boot (Leave commented by default)
     //reset_identification();
     //reset_identification_2();
+
+	//SRAM Testing
+	test_1();
 
 
     //Enable interrupts
