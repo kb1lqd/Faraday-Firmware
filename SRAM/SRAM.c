@@ -181,40 +181,26 @@ void Faraday_SRAM_Write_Sequential_Bytes(unsigned int count, unsigned int sram_a
 }
 
 void Faraday_SRAM_Read_Sequential_Bytes(unsigned int count, unsigned int sram_address, unsigned char *buffer_address){
-	// BUG 10/13/2015 - Not fully working! [Brenton Salmi]
+	//Initialize variables
 	unsigned int i;
-		//Faraday_SRAM_Write_Byte(buffer_address[i],sram_address);
-		unsigned char address_h, address_l;
-		unsigned char test2;
 
-		//Select the SRAM chip select
-		Faraday_SRAM_CS_Enable();
-		__delay_cycles(10); //Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
+	//Select the SRAM chip select
+	Faraday_SRAM_CS_Enable();
 
-		/*
-		//Shift the address INTEGER into high and low CHAR bytes
-		address_h = (sram_address>>8) & 0xFF;
-		address_l = sram_address & 0xFF;
-		*/
+	//Delay post transmission
+	__delay_cycles(10); //Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
 
-		//Send the WRITE command
-		spi_tx(SRAM_READ);
+	//Send the WRITE command
+	spi_tx(SRAM_READ);
 
-		/*
-		//Send Address to be written to
+	Faraday_SRAM_Send_Address(sram_address);
 
-		spi_tx(address_h);
-		spi_tx(address_l);
-		*/
-		Faraday_SRAM_Send_Address(sram_address);
-
-
-		for(i=0;i<count;i++){
-			buffer_address[i] = spi_rx_byte(50);
-		}
-		__delay_cycles(50);//Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
-		Faraday_SRAM_CS_Disable();
-
+	for(i=0;i<count;i++){
+		buffer_address[i] = spi_rx_byte(50);
+	}
+	//Delay post transmission
+	__delay_cycles(50);//Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
+	Faraday_SRAM_CS_Disable();
 	}
 
 
@@ -227,7 +213,6 @@ void Faraday_SRAM_Send_Address(unsigned int sram_address){
 	address_l = sram_address & 0xFF;
 
 	//Send Address to be written to
-
 	spi_tx(address_h);
 	spi_tx(address_l);
 }
