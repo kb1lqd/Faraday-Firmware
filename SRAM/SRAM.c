@@ -156,7 +156,8 @@ void Faraday_SRAM_Write_Sequential_Bytes(unsigned int count, unsigned int sram_a
 	unsigned char address_h, address_l;
 
 	//Select the SRAM chip select
-	Faraday_SRAM_CS_Enable();
+	//Faraday_SRAM_CS_Enable();
+	spi_enable_chip_select(SPI_HAL_CS_SRAM);
 
 	//Delay post transmission
 	__delay_cycles(20); //Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
@@ -175,7 +176,8 @@ void Faraday_SRAM_Write_Sequential_Bytes(unsigned int count, unsigned int sram_a
 		__delay_cycles(25);
 	}
 	__delay_cycles(20);//Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
-	Faraday_SRAM_CS_Disable();
+	//Faraday_SRAM_CS_Disable();
+	spi_disable_chip_select(SPI_HAL_CS_SRAM);
 }
 
 void Faraday_SRAM_Read_Sequential_Bytes(unsigned int count, unsigned int sram_address, unsigned char *buffer_address){
@@ -183,7 +185,8 @@ void Faraday_SRAM_Read_Sequential_Bytes(unsigned int count, unsigned int sram_ad
 	unsigned int i;
 
 	//Select the SRAM chip select
-	Faraday_SRAM_CS_Enable();
+	//Faraday_SRAM_CS_Enable();
+	spi_enable_chip_select(SPI_HAL_CS_SRAM);
 
 	//Delay post transmission
 	__delay_cycles(10); //Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
@@ -198,7 +201,8 @@ void Faraday_SRAM_Read_Sequential_Bytes(unsigned int count, unsigned int sram_ad
 	}
 	//Delay post transmission
 	__delay_cycles(50);//Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
-	Faraday_SRAM_CS_Disable();
+	//Faraday_SRAM_CS_Disable();
+	spi_disable_chip_select(SPI_HAL_CS_SRAM);
 	}
 
 
