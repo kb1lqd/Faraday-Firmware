@@ -27,9 +27,35 @@ void spi_tx(unsigned char tx);
 unsigned char spi_rx_byte(unsigned char delay_cycles);
 unsigned char spi_enable_chip_select(unsigned char SPI_HAL_CS);
 unsigned char spi_disable_chip_select(unsigned char SPI_HAL_CS);
+/** @brief Enable the SPI SRAM IC chip select pin
+ *
+ *	Enables the chip select pin on the SRAM IC.
+ *
+ */
 void Faraday_SRAM_CS_Enable(void);
+
+
+/** @brief Disable the SPI SRAM IC chip select pin
+ *
+ * Disables the chip select pin on the SRAM IC.
+ *
+ */
 void Faraday_SRAM_CS_Disable(void);
-void Faraday_SRAM_Hold_Enable(void); // Useful for when devloping a priority switching SPI interface
-void Faraday_SRAM_Hold_Disable(void); // Useful for when devloping a priority switching SPI interface
+
+
+/** @brief Enables the SPI SRAM IC HOLD pin
+ *
+ * Enables the chip select pin on the SRAM IC.
+ *
+ */
+void Faraday_SRAM_Hold_Enable(void);
+
+
+/** @brief Disable the SPI SRAM IC HOLD pin
+ *
+ * Disables the HOLD pin on the SRAM IC.
+ *
+ */
+void Faraday_SRAM_Hold_Disable(void);
 
 #endif /* FARADAY_HAL_SPI_H_ */

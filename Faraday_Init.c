@@ -20,6 +20,7 @@
 
 /* hardware abstraction */
 #include "Faraday_HAL/Faraday_HAL.h"
+#include "Faraday_HAL/SPI.h"
 #include "HAL/hal_pmm.h"
 #include "HAL/hal_pmm.h"
 #include "HAL/hal_UCS.h"

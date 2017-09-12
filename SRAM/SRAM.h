@@ -10,36 +10,7 @@
 #define SRAM_SRAM_H_
 
 
-/** @brief Enable the SPI SRAM IC chip select pin
- *
- *	Enables the chip select pin on the SRAM IC.
- *
- */
-void Faraday_SRAM_CS_Enable(void);
 
-
-/** @brief Disable the SPI SRAM IC chip select pin
- *
- * Disables the chip select pin on the SRAM IC.
- *
- */
-void Faraday_SRAM_CS_Disable(void);
-
-
-/** @brief Enables the SPI SRAM IC HOLD pin
- *
- * Enables the chip select pin on the SRAM IC.
- *
- */
-void Faraday_SRAM_Hold_Enable(void);
-
-
-/** @brief Disable the SPI SRAM IC HOLD pin
- *
- * Disables the HOLD pin on the SRAM IC.
- *
- */
-void Faraday_SRAM_Hold_Disable(void);
 
 
 /** @brief Write a byte to an SRAM address

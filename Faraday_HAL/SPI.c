@@ -94,22 +94,22 @@ unsigned char spi_disable_chip_select(unsigned char SPI_HAL_CS){
 	}
 }
 
-static void Faraday_SRAM_CS_Enable(void){
+void Faraday_SRAM_CS_Enable(void){
 	//Active LOW
 	P5OUT &= ~SRAM_CS;
 }
 
-static void Faraday_SRAM_CS_Disable(void){
+void Faraday_SRAM_CS_Disable(void){
 	//Active LOW
 	P5OUT |= SRAM_CS;
 }
 
-static void Faraday_SRAM_Hold_Enable(void){
+void Faraday_SRAM_Hold_Enable(void){
 	//Active LOW
 	P5OUT &= ~SRAM_HOLD;
 }
 
-static void Faraday_SRAM_Hold_Disable(void){
+void Faraday_SRAM_Hold_Disable(void){
 	//Active LOW
 	P5OUT |= SRAM_HOLD;
 }
