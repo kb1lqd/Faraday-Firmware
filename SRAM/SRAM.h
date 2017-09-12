@@ -141,4 +141,6 @@ void Faraday_SRAM_Write_Sequential_Bytes(unsigned int count, unsigned int sram_a
  */
 void Faraday_SRAM_Read_Sequential_Bytes(unsigned int count, unsigned int sram_address, unsigned char *buffer_address);
 
+void Faraday_SRAM_Send_Address(unsigned int sram_address);
+
 #endif /* SRAM_SRAM_H_ */

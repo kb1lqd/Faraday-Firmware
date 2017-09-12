@@ -191,17 +191,22 @@ void Faraday_SRAM_Read_Sequential_Bytes(unsigned int count, unsigned int sram_ad
 		Faraday_SRAM_CS_Enable();
 		__delay_cycles(10); //Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
 
+		/*
 		//Shift the address INTEGER into high and low CHAR bytes
 		address_h = (sram_address>>8) & 0xFF;
 		address_l = sram_address & 0xFF;
+		*/
 
 		//Send the WRITE command
 		spi_tx(SRAM_READ);
 
+		/*
 		//Send Address to be written to
 
 		spi_tx(address_h);
 		spi_tx(address_l);
+		*/
+		Faraday_SRAM_Send_Address(sram_address);
 
 
 		for(i=0;i<count;i++){
@@ -211,3 +216,18 @@ void Faraday_SRAM_Read_Sequential_Bytes(unsigned int count, unsigned int sram_ad
 		Faraday_SRAM_CS_Disable();
 
 	}
+
+
+void Faraday_SRAM_Send_Address(unsigned int sram_address){
+	//Faraday_SRAM_Write_Byte(buffer_address[i],sram_address);
+	unsigned char address_h, address_l;
+
+	//Shift the address INTEGER into high and low CHAR bytes
+	address_h = (sram_address>>8) & 0xFF;
+	address_l = sram_address & 0xFF;
+
+	//Send Address to be written to
+
+	spi_tx(address_h);
+	spi_tx(address_l);
+}
