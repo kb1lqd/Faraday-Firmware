@@ -59,10 +59,14 @@ unsigned char spi_enable_chip_select(unsigned char SPI_HAL_CS){
 		case SPI_HAL_CS_SRAM: // SRAM device
 			Faraday_SRAM_CS_Enable();
 			break;
+		case SPI_HAL_CS_I2C: // SPI to I2C
+			Faraday_C2120_CS_Enable();
+			break;
 		default: //Default - Should NEVER get here
 			__no_operation();
 			break;
 		}
+		return 1;
 	}
 	else{
 		// A chip select is still active! This should never happen and will potentially cause race condition errors.
@@ -80,6 +84,9 @@ unsigned char spi_disable_chip_select(unsigned char SPI_HAL_CS){
 		case SPI_HAL_CS_SRAM: // SRAM device
 			Faraday_SRAM_CS_Disable();
 			break;
+		case SPI_HAL_CS_I2C: // SPI to I2C
+			Faraday_C2120_CS_Disable();
+			break;
 		default: //Default - Should NEVER get here
 			__no_operation();
 			break;
@@ -87,6 +94,8 @@ unsigned char spi_disable_chip_select(unsigned char SPI_HAL_CS){
 
 		// Set chip select bitmask global variable to default state (0x00) (mostly for debugging, at this time)
 		chip_select_bitmask = 0x00;
+
+		return 1;
 	}
 	else{
 		// A chip select is still active! This should never happen and will potentially cause race condition errors.

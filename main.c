@@ -93,8 +93,20 @@ int main(void) {
     //reset_identification_2();
 
 	//SPI External Testing
-	Faraday_C2120_CS_Enable();
-	Faraday_C2120_CS_Disable();
+	init_SPI_Clk_00();
+
+	//Faraday_C2120_CS_Enable();
+	//Faraday_C2120_CS_Disable();
+	volatile unsigned char testspi;
+	testspi = C2120_Read_Register(0x00);
+	testspi = C2120_Read_Register(0x01);
+	testspi = C2120_Read_Register(0x02);
+	testspi = C2120_Read_Register(0x03);
+	__no_operation();
+	C2120_Read_Version();
+	__no_operation();
+
+	init_SPI_Clk_10();
 
 
     //Enable interrupts

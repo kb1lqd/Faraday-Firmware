@@ -518,11 +518,11 @@ void init_ADC(void){
 *************************************************************/
 void init_SPI(void){
 	UCB0CTL1 |= UCSWRST;                      // **Put state machine in reset**
-	UCB0CTL0 |= UCMST+UCSYNC+UCCKPH+UCMSB;    // 3-pin, 8-bit SPI master +UCCKPL
+	UCB0CTL0 |= UCMST+UCSYNC+UCCKPH+UCMSB;    // 3-pin, 8-bit SPI master, MODE 10| +UCCKPL
 											  // Clock polarity high, MSB
 	UCB0CTL1 |= UCSSEL_2;                     // SMCLK
-	UCB0BR0 = 0x02;                           // /2
-	UCB0BR1 = 0;                              //
+	UCB0BR0 = 0x01;                           // /2
+	UCB0BR1 = 0x04;                              //
 	UCB0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
 
 	//Disable HOLD (Active LOW)
@@ -530,6 +530,34 @@ void init_SPI(void){
 
 	//Disable Chip Select (CS) (Active Low)
 	Faraday_SRAM_CS_Disable();
+}
+
+void init_SPI_Clk_00(void){
+	UCB0CTL1 |= UCSWRST;                      // **Put state machine in reset**
+	UCB0CTL0 &= ~UCCKPH;
+	UCB0CTL0 &= ~UCCKPL;
+	UCB0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
+}
+
+void init_SPI_Clk_01(void){
+	UCB0CTL1 |= UCSWRST;                      // **Put state machine in reset**
+	UCB0CTL0 &= ~UCCKPH;
+	UCB0CTL0 |= UCCKPL;
+	UCB0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
+}
+
+void init_SPI_Clk_10(void){
+	UCB0CTL1 |= UCSWRST;                      // **Put state machine in reset**
+	UCB0CTL0 |= UCCKPH;
+	UCB0CTL0 &= ~UCCKPL;
+	UCB0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
+}
+
+void init_SPI_Clk_11(void){
+	UCB0CTL1 |= UCSWRST;                      // **Put state machine in reset**
+	UCB0CTL0 |= UCCKPH;
+	UCB0CTL0 |= UCCKPL;
+	UCB0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
 }
 
 /************************************************************
