@@ -58,4 +58,8 @@ void Faraday_SRAM_Hold_Enable(void);
  */
 void Faraday_SRAM_Hold_Disable(void);
 
+void Faraday_C2120_CS_Enable(void);
+
+void Faraday_C2120_CS_Disable(void);
+
 #endif /* FARADAY_HAL_SPI_H_ */

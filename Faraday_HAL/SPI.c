@@ -10,6 +10,7 @@
 /* standard includes */
 #include "cc430f6137.h"
 #include "SPI.h"
+#include "c2120.h"
 
 /* faraday hardware allocations */
 #include "../REVA_Faraday.h"
@@ -112,4 +113,14 @@ void Faraday_SRAM_Hold_Enable(void){
 void Faraday_SRAM_Hold_Disable(void){
 	//Active LOW
 	P5OUT |= SRAM_HOLD;
+}
+
+void Faraday_C2120_CS_Enable(void){
+	//Active LOW
+	P1OUT &= ~C2120_SPI_CS;
+}
+
+void Faraday_C2120_CS_Disable(void){
+	//Active LOW
+	P1OUT |= C2120_SPI_CS;
 }

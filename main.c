@@ -24,7 +24,8 @@
 #include "Applications/HAB/App_HAB.h"
 #include "Applications/RF_Packet/rf_packet.h"
 
-#include "Scratch/scratch_sram.h"
+//#include "Scratch/scratch_sram.h"
+#include "Faraday_HAL/SPI.h"
 
 //DELETE ME
 #include "scratch_flash.h"
@@ -91,8 +92,9 @@ int main(void) {
     //reset_identification();
     //reset_identification_2();
 
-	//SRAM Testing
-	test_1();
+	//SPI External Testing
+	Faraday_C2120_CS_Enable();
+	Faraday_C2120_CS_Disable();
 
 
     //Enable interrupts

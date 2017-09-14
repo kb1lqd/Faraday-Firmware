@@ -46,6 +46,9 @@
 /* faraday miscellaneous functions */
 #include "Faraday_HAL/Misc_Functions.h"
 
+/* C2120 SPI-I2C module functions */
+#include "Faraday_HAL/c2120.h"
+
 
 void faraday_main_intialize(void){
     init_UCS();
@@ -162,6 +165,12 @@ void init_GPIO(void){
 	P1DIR 	&= ~UCA0RXD;								// Set UCA0RXD P1.5 as input
 	P1OUT 	&= ~UCA0RXD;								// Set UCA0RXD P1.5 as OUTPUT for Pullup
 	P1REN 	&= ~UCA0RXD;								// Set UCA0RXD P1.5 REN as HIGH for pullup
+
+	// C2120 SPI to I2C Converter Module (External)
+	P1OUT |= C2120_SPI_CS; // Set P1.1 (external CS2 pin) to HIGH (CS is active LOW)
+	P1DIR |= C2120_SPI_CS; // Set P1.1 (external CS2 pin) to OUTPUT
+
+
 }
 
 
