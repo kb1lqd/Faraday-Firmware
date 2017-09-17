@@ -93,14 +93,17 @@ int main(void) {
     //reset_identification_2();
 
 	//SPI External Testing
-	unsigned char testspi;
+	unsigned char testspi, cp2120i;
 	init_SPI_Clk_11();
 
 	testspi = C2120_Read_Register(0x00);
 	testspi = C2120_Read_Register(0x07);
 	C2120_Write_Register(0x00, 0xAA);
 	C2120_Write_Register(0x07, 0xAA);
-	C2120_Write_Register(0x01, ~0x80);
+	for(cp2120i=0;cp2120i<0xFF;cp2120i++){
+		C2120_Write_Register(0x01, cp2120i);
+		__delay_cycles(1000000);
+	}
 	testspi = C2120_Read_Register(0x00);
 	testspi = C2120_Read_Register(0x07);
 	testspi = C2120_Read_Register(0x01);
