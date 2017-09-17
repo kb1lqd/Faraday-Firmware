@@ -98,13 +98,38 @@ int main(void) {
 	//Faraday_C2120_CS_Enable();
 	//Faraday_C2120_CS_Disable();
 	volatile unsigned char testspi;
+	/*
+	if(spi_enable_chip_select(SPI_HAL_CS_I2C) == 0){
+			__no_operation(); // SPI CS conflict!
+		}
+		else{
+			__no_operation(); // SPI CS conflict!
+			__delay_cycles(200);
+		}*/
+	spi_enable_chip_select(SPI_HAL_CS_I2C);
 	testspi = C2120_Read_Register(0x00);
+	spi_disable_chip_select(SPI_HAL_CS_I2C);
+	__delay_cycles(500);
+	spi_enable_chip_select(SPI_HAL_CS_I2C);
 	testspi = C2120_Read_Register(0x01);
+	spi_disable_chip_select(SPI_HAL_CS_I2C);
+	__delay_cycles(500);
+	spi_enable_chip_select(SPI_HAL_CS_I2C);
 	testspi = C2120_Read_Register(0x02);
+	spi_disable_chip_select(SPI_HAL_CS_I2C);
+	__delay_cycles(500);
+	spi_enable_chip_select(SPI_HAL_CS_I2C);
 	testspi = C2120_Read_Register(0x03);
 	__no_operation();
 	C2120_Read_Version();
 	__no_operation();
+	if(spi_disable_chip_select(SPI_HAL_CS_I2C) == 0){
+		__no_operation(); // SPI CS conflict!
+	}
+	else{
+		__no_operation(); // SPI CS conflict!
+		__delay_cycles(2000);
+	}
 
 	init_SPI_Clk_10();
 

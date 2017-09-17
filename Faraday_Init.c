@@ -149,12 +149,23 @@ void init_GPIO(void){
 	P1DIR 	|= UCB0CS1;									// Set UCB0CS1 as output
 
 	// SRAM IC SPI configuration
-	P5OUT	&= ~SRAM_CS + ~SRAM_HOLD;					// Set default SRAM CS and SRAM Hold to 0
+	//P5OUT	&= ~SRAM_CS + ~SRAM_HOLD;					// Set default SRAM CS and SRAM Hold to 0
+	P5OUT	|= SRAM_CS + SRAM_HOLD;						// Set default SRAM CS and SRAM Hold to HIGH
 	P5DIR 	|= SRAM_CS + SRAM_HOLD;						// Set SRAm CS and SRAM Hold to output
 
 	//Flash IC SPI Configuration
 	P3DIR	|= FLASH_SPI_CS;							// FLASH_SPI_CS set as output
 	P5DIR   |= FLASH_HOLD;								// FLASH_HOLD set as output
+	P1DIR   &= ~UCB0_SOMI_SCL;							// SPI MISO INPUT
+	P1OUT   |= UCB0_SOMI_SCL;							// SPI MISO Pullup
+	P1REN   |= UCB0_SOMI_SCL;							// SPI MISO Pullup
+	/*P1DIR   |= UCB0_SOMI_SCL;							// SPI MISO INPUT
+	P1OUT   |= UCB0_SOMI_SCL;							// SPI MISO Pullup
+	P1OUT   &= ~UCB0_SOMI_SCL;							// SPI MISO Pullup
+	P1DIR   |= UCB0_SIMO_SDA;
+	P1OUT   |= UCB0_SIMO_SDA;							// SPI MISO Pullup
+	P1OUT   &= ~UCB0_SIMO_SDA;							// SPI MISO Pullup
+	*/
 
 	////////////////////////////////////
 	// UART
@@ -521,8 +532,8 @@ void init_SPI(void){
 	UCB0CTL0 |= UCMST+UCSYNC+UCCKPH+UCMSB;    // 3-pin, 8-bit SPI master, MODE 10| +UCCKPL
 											  // Clock polarity high, MSB
 	UCB0CTL1 |= UCSSEL_2;                     // SMCLK
-	UCB0BR0 = 0x01;                           // /2
-	UCB0BR1 = 0x04;                              //
+	UCB0BR0 = 2;                           // HIGH f/(H+L*256)
+	UCB0BR1 = 0x01;                           // LOW  f/(H+L*256)
 	UCB0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
 
 	//Disable HOLD (Active LOW)
