@@ -38,12 +38,6 @@ void spi_tx(unsigned char tx){
 
 unsigned char spi_rx_byte(unsigned char delay_cycles){
 	unsigned char rx_byte;
-	//Send dummy byte to shift SPI registers out of SRAM into RX CC430
-	//spi_tx(SPI_DUMMY_BYTE); //dummy
-
-	//__delay_cycles(50); //Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
-
-	//while (!(UCB0IFG&UCRXIFG));               // USCI_A0 TX buffer ready?
 	rx_byte = UCB0RXBUF;
 	return rx_byte;
 }

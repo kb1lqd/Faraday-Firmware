@@ -106,20 +106,17 @@ int main(void) {
 			__no_operation(); // SPI CS conflict!
 			__delay_cycles(200);
 		}*/
-	spi_enable_chip_select(SPI_HAL_CS_I2C);
+
+	init_SPI_Clk_11();
+
 	testspi = C2120_Read_Register(0x00);
-	spi_disable_chip_select(SPI_HAL_CS_I2C);
-	__delay_cycles(500);
-	spi_enable_chip_select(SPI_HAL_CS_I2C);
-	testspi = C2120_Read_Register(0x01);
-	spi_disable_chip_select(SPI_HAL_CS_I2C);
-	__delay_cycles(500);
-	spi_enable_chip_select(SPI_HAL_CS_I2C);
-	testspi = C2120_Read_Register(0x02);
-	spi_disable_chip_select(SPI_HAL_CS_I2C);
-	__delay_cycles(500);
-	spi_enable_chip_select(SPI_HAL_CS_I2C);
-	testspi = C2120_Read_Register(0x03);
+	testspi = C2120_Read_Register(0x07);
+	C2120_Write_Register(0x00, 0xAA);
+	C2120_Write_Register(0x07, 0xAA);
+	C2120_Write_Register(0x01, 50);
+	testspi = C2120_Read_Register(0x00);
+	testspi = C2120_Read_Register(0x07);
+
 	__no_operation();
 	C2120_Read_Version();
 	__no_operation();
