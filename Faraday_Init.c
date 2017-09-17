@@ -529,7 +529,7 @@ void init_ADC(void){
 *************************************************************/
 void init_SPI(void){
 	UCB0CTL1 |= UCSWRST;                      // **Put state machine in reset**
-	UCB0CTL0 |= UCMST+UCSYNC+UCCKPH+UCMSB;    // 3-pin, 8-bit SPI master, MODE 10| +UCCKPL
+	UCB0CTL0 |= UCMODE_0+UCMST+UCSYNC+UCCKPH+UCMSB;    // 3-pin, 8-bit SPI master, MODE 10| +UCCKPL
 											  // Clock polarity high, MSB
 	UCB0CTL1 |= UCSSEL_2;                     // SMCLK
 	UCB0BR0 = 2;                           // HIGH f/(H+L*256)

@@ -113,9 +113,10 @@ int main(void) {
 	testspi = C2120_Read_Register(0x07);
 	C2120_Write_Register(0x00, 0xAA);
 	C2120_Write_Register(0x07, 0xAA);
-	C2120_Write_Register(0x01, 50);
+	C2120_Write_Register(0x01, 0xF0);
 	testspi = C2120_Read_Register(0x00);
 	testspi = C2120_Read_Register(0x07);
+	testspi = C2120_Read_Register(0x01);
 
 	__no_operation();
 	C2120_Read_Version();
