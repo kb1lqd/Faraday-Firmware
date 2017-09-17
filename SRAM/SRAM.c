@@ -80,7 +80,7 @@ unsigned char Faraday_SRAM_Read_Settings(void){
 	//Send dummy byte to shift SPI registers out of SRAM into RX CC430
 	spi_tx(0x00); //dummy
 
-	__delay_cycles(50); //Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
+	__delay_cycles(SPI_BYTE_CYCLES*2); //Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
 	spi_disable_chip_select(SPI_HAL_CS_SRAM);
 
 	unsigned char test2;
@@ -103,12 +103,12 @@ void Faraday_SRAM_Write_Settings(unsigned char mode){
 
 		//Send the READ command
 		spi_tx(SRAM_WRSR);
-		__delay_cycles(50);
+		//__delay_cycles(50);
 
 		//Send dummy byte to shift SPI registers out of SRAM into RX CC430
 		spi_tx(mode2); //dummy
 
-		__delay_cycles(50); //Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
+		__delay_cycles(SPI_BYTE_CYCLES*2); //Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
 		spi_disable_chip_select(SPI_HAL_CS_SRAM);
 	}
 	else{
@@ -169,15 +169,19 @@ void Faraday_SRAM_Write_Sequential_Bytes(unsigned int count, unsigned int sram_a
 
 	//Send Address to be written to
 	Faraday_SRAM_Send_Address(sram_address);
+	__delay_cycles(SPI_BYTE_CYCLES*3);//Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
 
 	for(i=0;i<count;i++){
 		//Send byte to be written
 		spi_tx(buffer_address[i]);
 
 		//Delay post transmission
-		__delay_cycles(25);
+		//__delay_cycles(25);
 	}
-	__delay_cycles(20);//Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
+	for(i=0;i<count;i++){
+		//Delay post transmission
+		__delay_cycles(SPI_BYTE_CYCLES);//Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
+	}
 	//Faraday_SRAM_CS_Disable();
 	spi_disable_chip_select(SPI_HAL_CS_SRAM);
 }
@@ -196,12 +200,13 @@ void Faraday_SRAM_Read_Sequential_Bytes(unsigned int count, unsigned int sram_ad
 	spi_tx(SRAM_READ);
 
 	Faraday_SRAM_Send_Address(sram_address);
+	__delay_cycles(SPI_BYTE_CYCLES*3);
 
 	for(i=0;i<count;i++){
+		spi_tx(SPI_DUMMY_BYTE);
+		__delay_cycles(SPI_BYTE_CYCLES*2); // Delay for each byte RX to allow CC430 to catch up (Not sure why x2...)
 		buffer_address[i] = spi_rx_byte(50);
 	}
-	//Delay post transmission
-	__delay_cycles(50);//Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
 	spi_disable_chip_select(SPI_HAL_CS_SRAM);
 	}
 

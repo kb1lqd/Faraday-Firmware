@@ -24,7 +24,7 @@
 #include "Applications/HAB/App_HAB.h"
 #include "Applications/RF_Packet/rf_packet.h"
 
-//#include "Scratch/scratch_sram.h"
+#include "Scratch/scratch_sram.h"
 #include "Faraday_HAL/SPI.h"
 
 //DELETE ME
@@ -93,27 +93,14 @@ int main(void) {
     //reset_identification_2();
 
 	//SPI External Testing
-	init_SPI_Clk_00();
-
-	//Faraday_C2120_CS_Enable();
-	//Faraday_C2120_CS_Disable();
-	volatile unsigned char testspi;
-	/*
-	if(spi_enable_chip_select(SPI_HAL_CS_I2C) == 0){
-			__no_operation(); // SPI CS conflict!
-		}
-		else{
-			__no_operation(); // SPI CS conflict!
-			__delay_cycles(200);
-		}*/
-
+	unsigned char testspi;
 	init_SPI_Clk_11();
 
 	testspi = C2120_Read_Register(0x00);
 	testspi = C2120_Read_Register(0x07);
 	C2120_Write_Register(0x00, 0xAA);
 	C2120_Write_Register(0x07, 0xAA);
-	C2120_Write_Register(0x01, 0xF0);
+	C2120_Write_Register(0x01, ~0x80);
 	testspi = C2120_Read_Register(0x00);
 	testspi = C2120_Read_Register(0x07);
 	testspi = C2120_Read_Register(0x01);
@@ -121,15 +108,9 @@ int main(void) {
 	__no_operation();
 	C2120_Read_Version();
 	__no_operation();
-	if(spi_disable_chip_select(SPI_HAL_CS_I2C) == 0){
-		__no_operation(); // SPI CS conflict!
-	}
-	else{
-		__no_operation(); // SPI CS conflict!
-		__delay_cycles(2000);
-	}
 
 	init_SPI_Clk_10();
+	test_1();
 
 
     //Enable interrupts

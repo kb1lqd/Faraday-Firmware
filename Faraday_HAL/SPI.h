@@ -13,6 +13,7 @@
 #define SPI_DUMMY_BYTE 0x00
 #define SPI_HAL_CS_SRAM BIT0
 #define SPI_HAL_CS_I2C BIT1
+#define SPI_BYTE_CYCLES 2064
 
 /**@brief Shift a byte into the SPI transmit register (polling)
  *
@@ -27,6 +28,7 @@ void spi_tx(unsigned char tx);
 unsigned char spi_rx_byte(unsigned char delay_cycles);
 unsigned char spi_enable_chip_select(unsigned char SPI_HAL_CS);
 unsigned char spi_disable_chip_select(unsigned char SPI_HAL_CS);
+
 /** @brief Enable the SPI SRAM IC chip select pin
  *
  *	Enables the chip select pin on the SRAM IC.
