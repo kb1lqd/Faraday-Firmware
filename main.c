@@ -130,8 +130,8 @@ int main(void) {
 	C2120_Read_Version();
 	__no_operation();
 
-	C2120_Write_I2C(0xd0);
-	C2120_Read_I2C(1, (0xEF));
+	C2120_Write_I2C(0xd0); //Write to I2C device(s) the register to be queried
+	C2120_Read_I2C(1, (0xEF)); //Read from X device 1 byte (must previously have written a register address)
 
 	__no_operation();
 
