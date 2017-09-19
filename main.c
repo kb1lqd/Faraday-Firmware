@@ -130,7 +130,8 @@ int main(void) {
 	C2120_Read_Version();
 	__no_operation();
 
-	C2120_Read_I2C(1, BMP180_ADDRESS_READ, 0xD0);
+	C2120_Write_I2C(0xd0);
+	C2120_Read_I2C(1, (0xEF));
 
 	__no_operation();
 

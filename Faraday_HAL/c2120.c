@@ -104,7 +104,21 @@ unsigned char C2120_Get_I2CTO2(void){
 }
 
 
-unsigned char C2120_Read_I2C(unsigned char bytecnt, unsigned char slaveaddr, unsigned char slavereg){
+unsigned char C2120_Write_I2C(unsigned char slaveaddr){
+	volatile unsigned char verbyteh, verbytel;
+
+	spi_enable_chip_select(SPI_HAL_CS_I2C);
+	//Send the WRITE command
+	spi_tx(C2120_I2C_WRITE);
+	spi_tx(slaveaddr);
+	__delay_cycles(SPI_BYTE_CYCLES*2);
+
+	spi_disable_chip_select(SPI_HAL_CS_I2C);
+
+	return 1;
+}
+
+unsigned char C2120_Read_I2C(unsigned char bytecnt, unsigned char slaveaddr){
 	volatile unsigned char verbyteh, verbytel;
 
 	spi_enable_chip_select(SPI_HAL_CS_I2C);
@@ -112,8 +126,7 @@ unsigned char C2120_Read_I2C(unsigned char bytecnt, unsigned char slaveaddr, uns
 	spi_tx(C2120_I2C_READ);
 	spi_tx(bytecnt);
 	spi_tx(slaveaddr);
-	spi_tx(slavereg);
-	__delay_cycles(SPI_BYTE_CYCLES*4);
+	__delay_cycles(SPI_BYTE_CYCLES*3);
 
 	spi_disable_chip_select(SPI_HAL_CS_I2C);
 

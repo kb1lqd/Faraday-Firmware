@@ -43,6 +43,7 @@ unsigned char C2120_Get_IOCONFIG2(void);
 unsigned char C2120_Get_EDGEINT(void);
 unsigned char C2120_Get_I2CTO2(void);
 
-unsigned char C2120_Read_I2C(unsigned char bytecnt, unsigned char slaveaddr, unsigned char slavereg);
+unsigned char C2120_Write_I2C(unsigned char slaveaddr);
+unsigned char C2120_Read_I2C(unsigned char bytecnt, unsigned char slaveaddr);
 
 #endif /* FARADAY_HAL_C2120_H_ */
