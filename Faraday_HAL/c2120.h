@@ -25,6 +25,10 @@
 #define C2120_REG_I2CTO2 0x09 // I2CTO2 register address
 
 
+#define C2120_I2C_WRITE 0x00 // Write I2C slave
+#define C2120_I2C_READ 0x01 // Read I2C slave
+
+
 unsigned char C2120_Write_Register(unsigned char addr, unsigned char value);
 unsigned char C2120_Read_Register(unsigned char addr);
 unsigned char C2120_Read_Version(void);
@@ -38,5 +42,7 @@ unsigned char C2120_Get_RXBUFF(void);
 unsigned char C2120_Get_IOCONFIG2(void);
 unsigned char C2120_Get_EDGEINT(void);
 unsigned char C2120_Get_I2CTO2(void);
+
+unsigned char C2120_Read_I2C(unsigned char bytecnt, unsigned char slaveaddr, unsigned char slavereg);
 
 #endif /* FARADAY_HAL_C2120_H_ */

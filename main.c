@@ -27,6 +27,7 @@
 #include "Scratch/scratch_sram.h"
 #include "Faraday_HAL/SPI.h"
 #include "Faraday_HAL/c2120.h"
+#include "External_Sensors/bmp180.h"
 
 //DELETE ME
 #include "scratch_flash.h"
@@ -105,10 +106,12 @@ int main(void) {
 	testspi = C2120_Read_Register(0x07);
 	C2120_Write_Register(0x00, 0xAA);
 	C2120_Write_Register(0x07, 0xAA);
+	/*
 	for(cp2120i=0;cp2120i<0xFF;cp2120i++){
 		C2120_Write_Register(0x01, cp2120i);
 		__delay_cycles(1000000);
 	}
+	*/
 	testspi = C2120_Read_Register(0x00);
 	testspi = C2120_Read_Register(0x07);
 	testspi = C2120_Read_Register(0x01);
@@ -126,6 +129,11 @@ int main(void) {
 	__no_operation();
 	C2120_Read_Version();
 	__no_operation();
+
+	C2120_Read_I2C(1, BMP180_ADDRESS_READ, 0xD0);
+
+	__no_operation();
+
 
 	init_SPI_Clk_10();
 	//test_1();
