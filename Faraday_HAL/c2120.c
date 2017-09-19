@@ -67,4 +67,39 @@ unsigned char C2120_Read_Version(void){
 		return 1;
 }
 
+unsigned char C2120_Get_IOCONFIG(void){
+	return C2120_Read_Register(C2120_REG_IOCONFIG);
+}
+
+unsigned char C2120_Get_I2CCLOCK(void){
+	return C2120_Read_Register(C2120_REG_I2CCLOCK);
+}
+
+unsigned char C2120_Get_I2CTO(void){
+	return C2120_Read_Register(C2120_REG_I2CTO);
+}
+
+unsigned char C2120_Get_I2CSTAT(void){
+	return C2120_Read_Register(C2120_REG_I2CSTAT);
+}
+
+unsigned char C2120_Get_I2CADR(void){
+	return C2120_Read_Register(C2120_REG_I2CADR);
+}
+
+unsigned char C2120_Get_RXBUFF(void){
+	return C2120_Read_Register(C2120_REG_RXBUFF);
+}
+
+unsigned char C2120_Get_IOCONFIG2(void){
+	return C2120_Read_Register(C2120_REG_IOCONFIG2);
+}
+
+unsigned char C2120_Get_EDGEINT(void){
+	return C2120_Read_Register(C2120_REG_EDGEINT);
+}
+
+unsigned char C2120_Get_I2CTO2(void){
+	return C2120_Read_Register(C2120_REG_I2CTO2);
+}
 

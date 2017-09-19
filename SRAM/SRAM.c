@@ -223,3 +223,10 @@ void Faraday_SRAM_Send_Address(unsigned int sram_address){
 	spi_tx(address_h);
 	spi_tx(address_l);
 }
+
+void Faraday_SRAM_Toggle_CS(void){
+	//This function simply turns the SRAM CS pin enabled and disabled which when used on bootup prevents the low impedance issue noted in firmware issue #80
+	spi_enable_chip_select(SPI_HAL_CS_SRAM);
+	__delay_cycles(SPI_BYTE_CYCLES); //Per datasheet at 3.0V CS delay is 25ns = @16MHz is 2.5 clock cycles
+	spi_disable_chip_select(SPI_HAL_CS_SRAM);
+}

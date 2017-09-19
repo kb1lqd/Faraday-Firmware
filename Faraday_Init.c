@@ -159,13 +159,9 @@ void init_GPIO(void){
 	P1DIR   &= ~UCB0_SOMI_SCL;							// SPI MISO INPUT
 	P1OUT   |= UCB0_SOMI_SCL;							// SPI MISO Pullup
 	P1REN   |= UCB0_SOMI_SCL;							// SPI MISO Pullup
-	/*P1DIR   |= UCB0_SOMI_SCL;							// SPI MISO INPUT
-	P1OUT   |= UCB0_SOMI_SCL;							// SPI MISO Pullup
-	P1OUT   &= ~UCB0_SOMI_SCL;							// SPI MISO Pullup
-	P1DIR   |= UCB0_SIMO_SDA;
-	P1OUT   |= UCB0_SIMO_SDA;							// SPI MISO Pullup
-	P1OUT   &= ~UCB0_SIMO_SDA;							// SPI MISO Pullup
-	*/
+
+	P2DIR &= ~C2120_SPI_I2C_INT;						// CP2120 INT Pin P2.5 Input
+
 
 	////////////////////////////////////
 	// UART

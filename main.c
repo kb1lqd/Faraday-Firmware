@@ -26,6 +26,7 @@
 
 #include "Scratch/scratch_sram.h"
 #include "Faraday_HAL/SPI.h"
+#include "Faraday_HAL/c2120.h"
 
 //DELETE ME
 #include "scratch_flash.h"
@@ -92,8 +93,12 @@ int main(void) {
     //reset_identification();
     //reset_identification_2();
 
+	//SPI - Toggle SRAM (Prevent low MISO impedance Github firmware issue #80)
+	Faraday_SRAM_Toggle_CS();
+
 	//SPI External Testing
-	unsigned char testspi, cp2120i;
+	volatile unsigned char testspi, cp2120i;
+
 	init_SPI_Clk_11();
 
 	testspi = C2120_Read_Register(0x00);
@@ -108,12 +113,22 @@ int main(void) {
 	testspi = C2120_Read_Register(0x07);
 	testspi = C2120_Read_Register(0x01);
 
+	testspi = C2120_Get_I2CTO2();
+	testspi = C2120_Get_I2CCLOCK();
+	testspi = C2120_Get_I2CTO();
+	testspi = C2120_Get_I2CSTAT();
+	testspi = C2120_Get_I2CADR();
+	testspi = C2120_Get_RXBUFF();
+	testspi = C2120_Get_IOCONFIG2();
+	testspi = C2120_Get_EDGEINT();
+	testspi = C2120_Get_I2CTO2();
+
 	__no_operation();
 	C2120_Read_Version();
 	__no_operation();
 
 	init_SPI_Clk_10();
-	test_1();
+	//test_1();
 
 
     //Enable interrupts

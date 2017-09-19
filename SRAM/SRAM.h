@@ -114,4 +114,6 @@ void Faraday_SRAM_Read_Sequential_Bytes(unsigned int count, unsigned int sram_ad
 
 void Faraday_SRAM_Send_Address(unsigned int sram_address);
 
+void Faraday_SRAM_Toggle_CS(void);
+
 #endif /* SRAM_SRAM_H_ */
