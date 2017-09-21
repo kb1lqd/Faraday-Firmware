@@ -112,7 +112,7 @@ unsigned char C2120_Write_Reg_I2C(unsigned char devicewriteaddr, unsigned char r
 	spi_tx(0x02); // 2 bytes to write [DEVICE ADDR, DEVICE REGISTER]
 	spi_tx(devicewriteaddr);
 	spi_tx(regaddr);
-	__delay_cycles(SPI_BYTE_CYCLES*4);
+	__delay_cycles(SPI_BYTE_CYCLES*5);
 	spi_disable_chip_select(SPI_HAL_CS_I2C);
 
 	return 1;
@@ -126,7 +126,7 @@ unsigned char C2120_Read_Reg_I2C(unsigned char devicereadaddr, unsigned char byt
 	spi_tx(C2120_I2C_READ);
 	spi_tx(bytecount);
 	spi_tx(devicereadaddr);
-	__delay_cycles(SPI_BYTE_CYCLES*3);
+	__delay_cycles(SPI_BYTE_CYCLES*4);
 
 	spi_disable_chip_select(SPI_HAL_CS_I2C);
 
@@ -138,15 +138,16 @@ unsigned char C2120_Read_I2C_Buffer(unsigned char *buffer, unsigned char bytecou
 	unsigned char readbyte, i;
 
 	spi_enable_chip_select(SPI_HAL_CS_I2C);
-
+	__delay_cycles(SPI_BYTE_CYCLES);
 	//Send the WRITE command
 	spi_tx(C2120_REG_RXBUFF);
 	spi_tx(SPI_DUMMY_BYTE);
-	__delay_cycles(SPI_BYTE_CYCLES*2);
+	//__delay_cycles(SPI_BYTE_CYCLES*2);
 	for(i=0; i<bytecount; i++){
 		spi_tx(SPI_DUMMY_BYTE);
-		__delay_cycles(SPI_BYTE_CYCLES);
+		__delay_cycles(SPI_BYTE_CYCLES*5);
 		buffer[i] = spi_rx_byte(50);
+		__delay_cycles(SPI_BYTE_CYCLES);
 
 	}
 

@@ -133,12 +133,33 @@ int main(void) {
 	volatile unsigned char bmpbuffer[32];
 
 	C2120_Write_Reg_I2C(BMP180_ADDRESS_WRITE, 0xD0);
+	testspi = 0x00;
+	while(!(testspi==0xF0)){
+			__delay_cycles(SPI_BYTE_CYCLES);
+			testspi = C2120_Get_I2CSTAT();
+		}
 	C2120_Read_Reg_I2C(BMP180_ADDRESS_READ, 1);
+	testspi = 0x00;
+	while(!(testspi==0xF0)){
+			__delay_cycles(SPI_BYTE_CYCLES);
+			testspi = C2120_Get_I2CSTAT();
+		}
 
-	testspi = C2120_Get_I2CSTAT();
-	testspi = C2120_Get_RXBUFF();
+	C2120_Read_I2C_Buffer(bmpbuffer, 1);
 
-	C2120_Read_I2C_Buffer(bmpbuffer, 2);
+	C2120_Write_Reg_I2C(BMP180_ADDRESS_WRITE, 0xD0);
+	testspi = 0x00;
+	while(!(testspi==0xF0)){
+			__delay_cycles(SPI_BYTE_CYCLES);
+			testspi = C2120_Get_I2CSTAT();
+		}
+	C2120_Read_Reg_I2C(BMP180_ADDRESS_READ, 1);
+	testspi = 0x00;
+	while(!(testspi==0xF0)){
+			__delay_cycles(SPI_BYTE_CYCLES);
+			testspi = C2120_Get_I2CSTAT();
+		}
+	C2120_Read_I2C_Buffer(bmpbuffer, 1);
 
 
 	__no_operation();
