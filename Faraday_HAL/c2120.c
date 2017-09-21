@@ -104,28 +104,28 @@ unsigned char C2120_Get_I2CTO2(void){
 }
 
 
-unsigned char C2120_Write_I2C(unsigned char slaveaddr){
-	volatile unsigned char verbyteh, verbytel;
+unsigned char C2120_Write_Reg_I2C(unsigned char devicewriteaddr, unsigned char regaddr){
 
 	spi_enable_chip_select(SPI_HAL_CS_I2C);
 	//Send the WRITE command
 	spi_tx(C2120_I2C_WRITE);
-	spi_tx(slaveaddr);
-	__delay_cycles(SPI_BYTE_CYCLES*2);
-
+	spi_tx(0x02); // 2 bytes to write [DEVICE ADDR, DEVICE REGISTER]
+	spi_tx(devicewriteaddr);
+	spi_tx(regaddr);
+	__delay_cycles(SPI_BYTE_CYCLES*4);
 	spi_disable_chip_select(SPI_HAL_CS_I2C);
 
 	return 1;
 }
 
-unsigned char C2120_Read_I2C(unsigned char bytecnt, unsigned char slaveaddr){
+unsigned char C2120_Read_Reg_I2C(unsigned char devicereadaddr, unsigned char bytecount){
 	volatile unsigned char verbyteh, verbytel;
 
 	spi_enable_chip_select(SPI_HAL_CS_I2C);
 	//Send the WRITE command
 	spi_tx(C2120_I2C_READ);
-	spi_tx(bytecnt);
-	spi_tx(slaveaddr);
+	spi_tx(bytecount);
+	spi_tx(devicereadaddr);
 	__delay_cycles(SPI_BYTE_CYCLES*3);
 
 	spi_disable_chip_select(SPI_HAL_CS_I2C);
@@ -133,3 +133,26 @@ unsigned char C2120_Read_I2C(unsigned char bytecnt, unsigned char slaveaddr){
 	return 1;
 }
 
+unsigned char C2120_Read_I2C_Buffer(unsigned char *buffer, unsigned char bytecount){
+	//Make multiple byte capable!
+	unsigned char readbyte, i;
+
+	spi_enable_chip_select(SPI_HAL_CS_I2C);
+
+	//Send the WRITE command
+	spi_tx(C2120_REG_RXBUFF);
+	spi_tx(SPI_DUMMY_BYTE);
+	__delay_cycles(SPI_BYTE_CYCLES*2);
+	for(i=0; i<bytecount; i++){
+		spi_tx(SPI_DUMMY_BYTE);
+		__delay_cycles(SPI_BYTE_CYCLES);
+		buffer[i] = spi_rx_byte(50);
+
+	}
+
+	spi_disable_chip_select(SPI_HAL_CS_I2C);
+
+
+	return 1; //Return 1 for success
+	//}
+}

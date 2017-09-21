@@ -98,7 +98,7 @@ int main(void) {
 	Faraday_SRAM_Toggle_CS();
 
 	//SPI External Testing
-	volatile unsigned char testspi, cp2120i;
+	volatile unsigned char testspi, cp2120i, rxbufi2c;
 
 	init_SPI_Clk_11();
 
@@ -130,8 +130,16 @@ int main(void) {
 	C2120_Read_Version();
 	__no_operation();
 
-	C2120_Write_I2C(0xd0); //Write to I2C device(s) the register to be queried
-	C2120_Read_I2C(1, (0xEF)); //Read from X device 1 byte (must previously have written a register address)
+	volatile unsigned char bmpbuffer[32];
+
+	C2120_Write_Reg_I2C(BMP180_ADDRESS_WRITE, 0xD0);
+	C2120_Read_Reg_I2C(BMP180_ADDRESS_READ, 1);
+
+	testspi = C2120_Get_I2CSTAT();
+	testspi = C2120_Get_RXBUFF();
+
+	C2120_Read_I2C_Buffer(bmpbuffer, 2);
+
 
 	__no_operation();
 
