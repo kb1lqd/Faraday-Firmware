@@ -137,6 +137,9 @@ int main(void) {
 	while(!(testspi==0xF0)){
 			__delay_cycles(SPI_BYTE_CYCLES);
 			testspi = C2120_Get_I2CSTAT();
+			if(testspi==0xF1){
+				C2120_Write_Reg_I2C(BMP180_ADDRESS_WRITE, 0xD0);
+			}
 		}
 	C2120_Read_Reg_I2C(BMP180_ADDRESS_READ, 1);
 	testspi = 0x00;
