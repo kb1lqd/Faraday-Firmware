@@ -60,14 +60,17 @@ void test_c2120(void){
 //				C2120_Write_Reg_I2C(BMP180_ADDRESS_WRITE, BMP180_ADDRESS_ID);
 //			}
 //		}
-	C2120_Read_Reg_I2C(BMP180_ADDRESS_READ, 1);
-	testspi = 0x00;
-	while(!(testspi==C2120_I2C_ACK)){
-			__delay_cycles(SPI_BYTE_CYCLES);
-			testspi = C2120_Get_I2CSTAT();
-		}
 
-	C2120_Read_I2C_Buffer(bmpbuffer, 1);
+	CP2120_Read_I2C_Reg(BMP180_ADDRESS_WRITE, &bmpbuffer, 1);
+//	C2120_Read_Reg_I2C(BMP180_ADDRESS_READ, 1);
+//	testspi = 0x00;
+//	while(!(testspi==C2120_I2C_ACK)){
+//			__delay_cycles(SPI_BYTE_CYCLES);
+//			testspi = C2120_Get_I2CSTAT();
+//		}
+//
+//	C2120_Read_I2C_Buffer(bmpbuffer, 1);
+
 
 	C2120_Write_Reg_I2C(BMP180_ADDRESS_WRITE, 0xD0);
 	testspi = 0x00;
@@ -201,6 +204,18 @@ unsigned char C2120_Write_Reg_I2C(unsigned char devicewriteaddr, unsigned char r
 	spi_disable_chip_select(SPI_HAL_CS_I2C);
 
 	return 1;
+}
+
+unsigned char CP2120_Read_I2C_Reg(unsigned char deviceaddr, unsigned char *bmpbuffer, unsigned char len){
+	unsigned char testspi = 0x00;
+	C2120_Read_Reg_I2C(deviceaddr, len);
+
+	while(!(testspi==C2120_I2C_ACK)){
+			__delay_cycles(SPI_BYTE_CYCLES);
+			testspi = C2120_Get_I2CSTAT();
+		}
+
+	C2120_Read_I2C_Buffer(bmpbuffer, len);
 }
 
 unsigned char C2120_Read_Reg_I2C(unsigned char devicereadaddr, unsigned char bytecount){

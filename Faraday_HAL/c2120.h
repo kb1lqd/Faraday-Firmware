@@ -54,6 +54,7 @@ unsigned char C2120_Get_I2CTO2(void);
 
 unsigned char CP2120_Write_Reg(unsigned char devicewriteaddr, unsigned char regaddr);
 unsigned char C2120_Write_Reg_I2C(unsigned char deviceaddr, unsigned char regaddr);
+unsigned char CP2120_Read_I2C_Reg(unsigned char deviceaddr, unsigned char *bmpbuffer, unsigned char len);
 unsigned char C2120_Read_Reg_I2C(unsigned char devicereadaddr, unsigned char bytecount);
 unsigned char C2120_Read_I2C_Buffer(unsigned char *buffer, unsigned char bytecount);
 
