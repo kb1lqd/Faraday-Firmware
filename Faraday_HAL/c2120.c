@@ -49,7 +49,7 @@ void test_c2120(void){
 
 	volatile unsigned char bmpbuffer[32];
 
-	CP2120_Write_Reg(BMP180_ADDRESS_WRITE, BMP180_ADDRESS_ID);
+	CP2120_Write_I2C_Reg(BMP180_ADDRESS_WRITE, BMP180_ADDRESS_ID);
 //	C2120_Write_Reg_I2C(BMP180_ADDRESS_WRITE, BMP180_ADDRESS_ID);
 //	testspi = 0x00;
 //	while(!(testspi==C2120_I2C_ACK)){
@@ -176,7 +176,7 @@ unsigned char C2120_Get_I2CTO2(void){
 }
 
 
-unsigned char CP2120_Write_Reg(unsigned char devicewriteaddr, unsigned char regaddr){
+unsigned char CP2120_Write_I2C_Reg(unsigned char devicewriteaddr, unsigned char regaddr){
 	unsigned char testspi = 0x00;
 	C2120_Write_Reg_I2C(devicewriteaddr, regaddr);
 	while(!(testspi==C2120_I2C_ACK)){
