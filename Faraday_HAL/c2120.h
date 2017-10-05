@@ -24,6 +24,15 @@
 #define C2120_REG_EDGEINT 0x09 // EDGEINT register address
 #define C2120_REG_I2CTO2 0x09 // I2CTO2 register address
 
+#define C2120_I2C_ACK 0xF0 // I2C SUCCESS (ACK)
+#define C2120_I2C_SLAVE_ADDR_NAK 0xF1 // I2C Slave address NACKed
+#define C2120_I2C_SLAVE_DATA_NAK 0xF2 // I2C Slave data NACKed
+#define C2120_I2C_INPROGRESS 0xF3 // I2C Transaction in progress
+#define C2120_I2C_TIMEOUT 0xF8 // I2C Transaction timed out
+#define C2120_I2C_TXRXOVERFLOW 0xF9 // Command’s Bytes to Transmit Byte and Data Buffer Size do not match, or Read Buffer read number of bytes greater than buffer count.
+#define C2120_I2C_SCLLOW 0xFA // 2C SCL Low time-out, using timer configured in I2CTO2.
+#define C2120_I2C_BUSNOTFREE // I2C bus free detect has been disabled, and the bus is not free.
+
 
 #define C2120_I2C_WRITE 0x00 // Write I2C slave
 #define C2120_I2C_READ 0x01 // Read I2C slave
