@@ -28,7 +28,7 @@
 #define C2120_I2C_WRITE 0x00 // Write I2C slave
 #define C2120_I2C_READ 0x01 // Read I2C slave
 
-
+void test_c2120(void);
 unsigned char C2120_Write_Register(unsigned char addr, unsigned char value);
 unsigned char C2120_Read_Register(unsigned char addr);
 unsigned char C2120_Read_Version(void);

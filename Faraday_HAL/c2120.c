@@ -11,6 +11,77 @@
 #include "cc430f6137.h"
 #include "c2120.h"
 #include "SPI.h"
+#include "../External_Sensors/bmp180.h"
+
+void test_c2120(void){
+	//SPI External Testing
+	volatile unsigned char testspi, cp2120i, rxbufi2c;
+
+	init_SPI_Clk_11();
+
+	testspi = C2120_Read_Register(0x00);
+	testspi = C2120_Read_Register(0x07);
+	C2120_Write_Register(0x00, 0xAA);
+	C2120_Write_Register(0x07, 0xAA);
+	/*
+	for(cp2120i=0;cp2120i<0xFF;cp2120i++){
+		C2120_Write_Register(0x01, cp2120i);
+		__delay_cycles(1000000);
+	}
+	*/
+	testspi = C2120_Read_Register(0x00);
+	testspi = C2120_Read_Register(0x07);
+	testspi = C2120_Read_Register(0x01);
+
+	testspi = C2120_Get_I2CTO2();
+	testspi = C2120_Get_I2CCLOCK();
+	testspi = C2120_Get_I2CTO();
+	testspi = C2120_Get_I2CSTAT();
+	testspi = C2120_Get_I2CADR();
+	testspi = C2120_Get_RXBUFF();
+	testspi = C2120_Get_IOCONFIG2();
+	testspi = C2120_Get_EDGEINT();
+	testspi = C2120_Get_I2CTO2();
+
+	__no_operation();
+	C2120_Read_Version();
+	__no_operation();
+
+	volatile unsigned char bmpbuffer[32];
+
+	C2120_Write_Reg_I2C(BMP180_ADDRESS_WRITE, 0xD0);
+	testspi = 0x00;
+	while(!(testspi==0xF0)){
+			__delay_cycles(SPI_BYTE_CYCLES);
+			testspi = C2120_Get_I2CSTAT();
+			//If NAK received try again
+			if(testspi==0xF1){
+				C2120_Write_Reg_I2C(BMP180_ADDRESS_WRITE, 0xD0);
+			}
+		}
+	C2120_Read_Reg_I2C(BMP180_ADDRESS_READ, 1);
+	testspi = 0x00;
+	while(!(testspi==0xF0)){
+			__delay_cycles(SPI_BYTE_CYCLES);
+			testspi = C2120_Get_I2CSTAT();
+		}
+
+	C2120_Read_I2C_Buffer(bmpbuffer, 1);
+
+	C2120_Write_Reg_I2C(BMP180_ADDRESS_WRITE, 0xD0);
+	testspi = 0x00;
+	while(!(testspi==0xF0)){
+			__delay_cycles(SPI_BYTE_CYCLES);
+			testspi = C2120_Get_I2CSTAT();
+		}
+	C2120_Read_Reg_I2C(BMP180_ADDRESS_READ, 1);
+	testspi = 0x00;
+	while(!(testspi==0xF0)){
+			__delay_cycles(SPI_BYTE_CYCLES);
+			testspi = C2120_Get_I2CSTAT();
+		}
+	C2120_Read_I2C_Buffer(bmpbuffer, 1);
+}
 
 unsigned char C2120_Write_Register(unsigned char addr, unsigned char value){
 	spi_enable_chip_select(SPI_HAL_CS_I2C);
