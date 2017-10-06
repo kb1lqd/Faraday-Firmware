@@ -53,10 +53,34 @@ void test_c2120(void){
 	//CP2120_Read_I2C_Reg(BMP180_ADDRESS_WRITE, &bmpbuffer, 1);
 
 	unsigned char databytes[8];
+	volatile unsigned char bmp180_temp_msb, bmp180_temp_lsb;
 	databytes[0] = BMP180_ADDRESS_WRITE;
 	databytes[1] = BMP180_ADDRESS_ID;
 
 	CP2120_Write_I2C_Bytes(&databytes, 2);
+	CP2120_Read_I2C_Reg(BMP180_ADDRESS_WRITE, &bmpbuffer, 1);
+
+	//START Temp conversion
+	databytes[0] = BMP180_ADDRESS_WRITE;
+	databytes[1] = 0xF4;
+	databytes[2] = 0x2E;
+	CP2120_Write_I2C_Bytes(&databytes, 3);
+
+	//Get Temp MSB
+	databytes[0] = BMP180_ADDRESS_WRITE;
+	databytes[1] = 0xF6;
+	CP2120_Write_I2C_Bytes(&databytes, 2);
+	CP2120_Read_I2C_Reg(BMP180_ADDRESS_READ, &bmpbuffer, 1);
+	bmp180_temp_msb = bmpbuffer[0];
+
+	//Get Temp LSB
+	databytes[0] = BMP180_ADDRESS_WRITE;
+	databytes[1] = 0xF7;
+	CP2120_Write_I2C_Bytes(&databytes, 2);
+	CP2120_Read_I2C_Reg(BMP180_ADDRESS_READ, &bmpbuffer, 1);
+	bmp180_temp_lsb = bmpbuffer[0];
+
+
 	CP2120_Read_I2C_Reg(BMP180_ADDRESS_WRITE, &bmpbuffer, 1);
 
 	//CP2120_Write_I2C_Reg(BMP180_ADDRESS_WRITE, 0x2E);
