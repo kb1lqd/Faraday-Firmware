@@ -52,6 +52,9 @@ unsigned char C2120_Get_IOCONFIG2(void);
 unsigned char C2120_Get_EDGEINT(void);
 unsigned char C2120_Get_I2CTO2(void);
 
+unsigned char CP2120_Write_I2C_Bytes(unsigned char *buffer, unsigned char len);
+unsigned char C2120_Write_Bytes_I2C(unsigned char *bytes, unsigned char len);
+
 unsigned char CP2120_Write_Reg(unsigned char devicewriteaddr, unsigned char regaddr);
 unsigned char C2120_Write_Reg_I2C(unsigned char deviceaddr, unsigned char regaddr);
 unsigned char CP2120_Read_I2C_Reg(unsigned char deviceaddr, unsigned char *bmpbuffer, unsigned char len);
