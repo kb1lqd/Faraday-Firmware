@@ -60,6 +60,23 @@ void test_c2120(void){
 	CP2120_Write_I2C_Bytes(&databytes, 2);
 	CP2120_Read_I2C_Reg(BMP180_ADDRESS_WRITE, &bmpbuffer, 1);
 
+	//Get CAL Data TEMP
+	volatile unsigned char bmp180_ac1_msb, bmp180_ac1_lsb;
+	volatile unsigned int bmp180_ac1;
+	databytes[0] = BMP180_ADDRESS_WRITE;
+	databytes[1] = BMP180_CAL_ADDR_AC1_MSB;
+	CP2120_Write_I2C_Bytes(&databytes, 2);
+	CP2120_Read_I2C_Reg(BMP180_ADDRESS_WRITE, &bmp180_ac1_msb, 1);
+
+	databytes[0] = BMP180_ADDRESS_WRITE;
+	databytes[1] = BMP180_CAL_ADDR_AC1_LSB;
+	CP2120_Write_I2C_Bytes(&databytes, 2);
+	CP2120_Read_I2C_Reg(BMP180_ADDRESS_WRITE, &bmp180_ac1_lsb, 1);
+
+	bmp180_ac1 = 0x00;
+	bmp180_ac1 = bmp180_ac1_lsb;
+	bmp180_ac1 |= (bmp180_ac1_msb<<8);
+
 	//START Temp conversion
 	databytes[0] = BMP180_ADDRESS_WRITE;
 	databytes[1] = 0xF4;
