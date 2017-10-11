@@ -61,4 +61,7 @@ unsigned char CP2120_Read_I2C_Reg(unsigned char deviceaddr, unsigned char *bmpbu
 unsigned char C2120_Read_Reg_I2C(unsigned char devicereadaddr, unsigned char bytecount);
 unsigned char C2120_Read_I2C_Buffer(unsigned char *buffer, unsigned char bytecount);
 
+//BMP180 Functions
+unsigned int CP2120_BMP180_Get_Cal(unsigned char cal_addr_msb, unsigned char cal_addr_lsb);
+
 #endif /* FARADAY_HAL_C2120_H_ */
