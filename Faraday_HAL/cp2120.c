@@ -8,8 +8,9 @@
 /* -- Includes -- */
 
 /* standard includes */
+#include "cp2120.h"
+
 #include "cc430f6137.h"
-#include "c2120.h"
 #include "SPI.h"
 #include "../External_Sensors/bmp180.h"
 

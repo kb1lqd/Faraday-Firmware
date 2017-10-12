@@ -10,10 +10,8 @@
 /* standard includes */
 #include "cc430f6137.h"
 #include "SPI.h"
-#include "c2120.h"
-
-/* faraday hardware allocations */
 #include "../REVA_Faraday.h"
+#include "cp2120.h"
 
 
 

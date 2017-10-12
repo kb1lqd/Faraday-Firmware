@@ -5,8 +5,8 @@
  *      Author: Brent
  */
 
-#ifndef FARADAY_HAL_C2120_H_
-#define FARADAY_HAL_C2120_H_
+#ifndef FARADAY_HAL_CP2120_H_
+#define FARADAY_HAL_CP2120_H_
 
 #define C2120_SPI_I2C_INT BIT5 //P2.5
 #define C2120_SPI_CS BIT1 //P1.1
@@ -64,4 +64,4 @@ unsigned char C2120_Read_I2C_Buffer(unsigned char *buffer, unsigned char bytecou
 //BMP180 Functions
 unsigned int CP2120_BMP180_Get_Cal(unsigned char cal_addr_msb, unsigned char cal_addr_lsb);
 
-#endif /* FARADAY_HAL_C2120_H_ */
+#endif /* FARADAY_HAL_CP2120_H_ */

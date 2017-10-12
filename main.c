@@ -23,13 +23,10 @@
 #include "Faraday_HAL/Faraday_HAL.h"
 #include "Applications/HAB/App_HAB.h"
 #include "Applications/RF_Packet/rf_packet.h"
+#include "Faraday_HAL/cp2120.h"
 
 #include "Scratch/scratch_sram.h"
 #include "Faraday_HAL/SPI.h"
-#include "Faraday_HAL/c2120.h"
-
-
-//DELETE ME
 #include "scratch_flash.h"
 
 #define TIMER_HOUSEKEEP_CCR0 65 //Housekeeping timer raw interrupt count value. 65 with 32768 clock is ~1.98ms

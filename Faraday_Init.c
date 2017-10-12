@@ -42,12 +42,12 @@
 
 /* faraday device configuration application */
 #include "Applications/Device_Config/Device_Config.h"
+#include "Faraday_HAL/cp2120.h"
 
 /* faraday miscellaneous functions */
 #include "Faraday_HAL/Misc_Functions.h"
 
 /* C2120 SPI-I2C module functions */
-#include "Faraday_HAL/c2120.h"
 
 
 void faraday_main_intialize(void){
