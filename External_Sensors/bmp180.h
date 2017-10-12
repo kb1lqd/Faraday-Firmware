@@ -39,4 +39,7 @@
 #define BMP180_CAL_ADDR_MD_MSB 0xBE
 #define BMP180_CAL_ADDR_MD_LSB 0xBF
 
+void BMP180_Test(void);
+unsigned int BMP180_Get_Cal(unsigned char cal_addr_msb, unsigned char cal_addr_lsb);
+
 #endif /* EXTERNAL_SENSORS_BMP180_H_ */

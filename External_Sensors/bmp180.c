@@ -39,10 +39,10 @@ void BMP180_Test(void){
 	bmp180_ac1 |= (bmp180_ac1_msb<<8);
 
 	bmp180_ac1 = 0x00;
-	bmp180_ac1 = CP2120_BMP180_Get_Cal(BMP180_CAL_ADDR_AC1_MSB, BMP180_CAL_ADDR_AC1_LSB);
-	bmp180_ac2 = CP2120_BMP180_Get_Cal(BMP180_CAL_ADDR_AC2_MSB, BMP180_CAL_ADDR_AC2_LSB);
-	bmp180_ac3 = CP2120_BMP180_Get_Cal(BMP180_CAL_ADDR_AC3_MSB, BMP180_CAL_ADDR_AC3_LSB);
-	bmp180_ac4 = CP2120_BMP180_Get_Cal(BMP180_CAL_ADDR_AC4_MSB, BMP180_CAL_ADDR_AC4_LSB);
+	bmp180_ac1 = BMP180_Get_Cal(BMP180_CAL_ADDR_AC1_MSB, BMP180_CAL_ADDR_AC1_LSB);
+	bmp180_ac2 = BMP180_Get_Cal(BMP180_CAL_ADDR_AC2_MSB, BMP180_CAL_ADDR_AC2_LSB);
+	bmp180_ac3 = BMP180_Get_Cal(BMP180_CAL_ADDR_AC3_MSB, BMP180_CAL_ADDR_AC3_LSB);
+	bmp180_ac4 = BMP180_Get_Cal(BMP180_CAL_ADDR_AC4_MSB, BMP180_CAL_ADDR_AC4_LSB);
 
 	//START Temp conversion
 	databytes[0] = BMP180_ADDRESS_WRITE;
@@ -69,4 +69,26 @@ void BMP180_Test(void){
 
 	//CP2120_Write_I2C_Reg(BMP180_ADDRESS_WRITE, 0x2E);
 	//CP2120_Read_I2C_Reg(BMP180_ADDRESS_WRITE, &bmpbuffer, 1);
+}
+
+
+unsigned int BMP180_Get_Cal(unsigned char cal_addr_msb, unsigned char cal_addr_lsb){
+	unsigned char databytes[8];
+	volatile unsigned char bmp180_cal_msb, bmp180_cal_lsb;
+	volatile unsigned int bmp180_cal;
+	databytes[0] = BMP180_ADDRESS_WRITE;
+	databytes[1] = cal_addr_msb;
+	CP2120_Write_I2C_Bytes(&databytes, 2);
+	CP2120_Read_I2C_Reg(BMP180_ADDRESS_WRITE, &bmp180_cal_msb, 1);
+
+	databytes[0] = BMP180_ADDRESS_WRITE;
+	databytes[1] = cal_addr_lsb;
+	CP2120_Write_I2C_Bytes(&databytes, 2);
+	CP2120_Read_I2C_Reg(BMP180_ADDRESS_WRITE, &bmp180_cal_lsb, 1);
+
+	bmp180_cal = 0x00;
+	bmp180_cal = bmp180_cal_lsb;
+	bmp180_cal |= (bmp180_cal_msb<<8);
+
+	return bmp180_cal;
 }

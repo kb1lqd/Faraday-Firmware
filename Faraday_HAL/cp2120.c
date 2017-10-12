@@ -1,18 +1,23 @@
-/*
- * CP2120.c
+/** @file cp2120.c
+ * 	@brief Provides a library to interact with the CP2120 SPI to I2C module
  *
- *  Created on: Sep 13, 2017
- *      Author: Brent
+ * 	This program provides an interface library to interact with the CP2120
+ * 	SPI to I2C module. It is used to allow Faraday to interact with I2C items without switching
+ * 	USCI modes. Do note that the SPI phase/polarity needs to be "11" configuration to use this
+ * 	module.
+ *
+ * 	@todo Update MAX_CONFIGURATION_UPDATE_PACKET_LEN to implement Device_Configuration application
  */
 
 /* -- Includes -- */
 
 /* standard includes */
 #include "cp2120.h"
-
 #include "cc430f6137.h"
+
+/* USCI includes */
 #include "SPI.h"
-#include "../External_Sensors/bmp180.h"
+//#include "../External_Sensors/bmp180.h"
 
 void test_CP2120(void){
 	//SPI External Testing
@@ -245,32 +250,7 @@ unsigned char CP2120_Read_I2C_Buffer(unsigned char *buffer, unsigned char byteco
 
 	spi_disable_chip_select(SPI_HAL_CS_I2C);
 
-
 	return 1; //Return 1 for success
 	//}
 }
 
-
-
-// BMP180 Functions
-
-unsigned int CP2120_BMP180_Get_Cal(unsigned char cal_addr_msb, unsigned char cal_addr_lsb){
-	unsigned char databytes[8];
-	volatile unsigned char bmp180_cal_msb, bmp180_cal_lsb;
-	volatile unsigned int bmp180_cal;
-	databytes[0] = BMP180_ADDRESS_WRITE;
-	databytes[1] = cal_addr_msb;
-	CP2120_Write_I2C_Bytes(&databytes, 2);
-	CP2120_Read_I2C_Reg(BMP180_ADDRESS_WRITE, &bmp180_cal_msb, 1);
-
-	databytes[0] = BMP180_ADDRESS_WRITE;
-	databytes[1] = cal_addr_lsb;
-	CP2120_Write_I2C_Bytes(&databytes, 2);
-	CP2120_Read_I2C_Reg(BMP180_ADDRESS_WRITE, &bmp180_cal_lsb, 1);
-
-	bmp180_cal = 0x00;
-	bmp180_cal = bmp180_cal_lsb;
-	bmp180_cal |= (bmp180_cal_msb<<8);
-
-	return bmp180_cal;
-}
