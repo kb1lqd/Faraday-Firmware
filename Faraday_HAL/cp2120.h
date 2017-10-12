@@ -57,202 +57,186 @@
 #define CP2120_I2C_READ 0x01 /**< Read I2C slave */
 /** @}*/
 
-/**@brief
+/**@brief Simple testing function to example the CP2120
  *
+ * Simple testing function to example the CP2120
  *
- *
- * @param data_pointer
- * @param
  *
  */
 void test_CP2120(void);
 
-/**@brief
+/**@brief SPI Write to a single register
  *
+ * SPI Write to a single register.
  *
+ * @param addr CP2120 register address
+ * @param value Value to write into the address
  *
- * @param data_pointer
- * @param
+ * @return 1
  *
  */
 unsigned char CP2120_Write_Register(unsigned char addr, unsigned char value);
 
-/**@brief
+/**@brief SPI Read from a single register
  *
+ * SPI Read from a single register.
  *
+ * @param addr CP2120 register address
  *
- * @param data_pointer
- * @param
+ * @return Value read from register
  *
  */
 unsigned char CP2120_Read_Register(unsigned char addr);
 
-/**@brief
+/**@brief CP2120 SPI read device version
  *
+ * Reads the CP2120 version data. Currently only for debug as it returns nothing useful.
  *
+ * @return 1
  *
- * @param data_pointer
- * @param
  *
  */
 unsigned char CP2120_Read_Version(void);
 
-/**@brief
+/**@brief Get I2CTO2 from CP2120
  *
  *
  *
- * @param data_pointer
- * @param
+ * @return I2CTO2
  *
  */
 unsigned char CP2120_Get_I2CTO2(void);
 
-/**@brief
+/**@brief Get I2CCLOCK from CP2120
  *
  *
  *
- * @param data_pointer
- * @param
+ * @return I2CCLOCK
  *
  */
 unsigned char CP2120_Get_I2CCLOCK(void);
 
-/**@brief
+/**@brief Get I2CTO from CP2120
  *
  *
  *
- * @param data_pointer
- * @param
+ * @return I2CTO
  *
  */
 unsigned char CP2120_Get_I2CTO(void);
 
-/**@brief
+/**@brief Get I2CSTAT from CP2120
  *
  *
  *
- * @param data_pointer
- * @param
+ * @return I2CSTAT
  *
  */
 unsigned char CP2120_Get_I2CSTAT(void);
 
-/**@brief
+/**@brief Get I2CADR from CP2120
  *
  *
  *
- * @param data_pointer
- * @param
+ * @return I2CADR
  *
  */
 unsigned char CP2120_Get_I2CADR(void);
 
-/**@brief
+/**@brief Get RXBUFF from CP2120
  *
  *
  *
- * @param data_pointer
- * @param
+ * @return RXBUFF
  *
  */
 unsigned char CP2120_Get_RXBUFF(void);
 
-/**@brief
+/**@brief Get IOCONFIG2 from CP2120
  *
  *
  *
- * @param data_pointer
- * @param
+ * @return IOCONFIG2
  *
  */
 unsigned char CP2120_Get_IOCONFIG2(void);
 
-/**@brief
+/**@brief Get EDGEINT from CP2120
  *
  *
  *
- * @param data_pointer
- * @param
+ * @return EDGEINT
  *
  */
 unsigned char CP2120_Get_EDGEINT(void);
 
-/**@brief
+/**@brief Write bytearray over I2C
  *
+ * Write bytearray over I2C. Internal use, do not use.
  *
- *
- * @param data_pointer
- * @param
- *
- */
-unsigned char CP2120_Get_I2CTO2(void);
-
-/**@brief
- *
- *
- *
- * @param data_pointer
- * @param
+ * @param buffer Pointer to the array to write
+ * @param len Length of data in bytes to write
  *
  */
 unsigned char CP2120_Write_I2C_Bytes(unsigned char *buffer, unsigned char len);
 
-/**@brief
+/**@brief Write bytearray over I2C
  *
+ * Write bytearray over I2C. This is the high level function safe to use in application.
  *
- *
- * @param data_pointer
- * @param
+ * @param bytes Pointer to the array to write
+ * @param len Length of data in bytes to write
  *
  */
 unsigned char CP2120_Write_Bytes_I2C(unsigned char *bytes, unsigned char len);
 
-/**@brief
+/**@brief Write I2C Register function (Low Level)
  *
+ *	Low level function used by higher level functions to write bytes to I2C bus. Do not use unless you know what you are doing.
  *
- *
- * @param data_pointer
- * @param
+ * @param devicewriteaddr Address of the device to write to
+ * @param regaddr Register address to write into
  *
  */
 unsigned char CP2120_Write_Reg(unsigned char devicewriteaddr, unsigned char regaddr);
 
-/**@brief
+/**@brief Write I2C Register function (High Level)
  *
+ *	Higer level function to Write bytes into an I2C bus device. This function simply sends a write to the device to acknoledge what register will be written/read. (Deprecated?)
  *
- *
- * @param data_pointer
- * @param
+ * @param deviceaddr Address of the device to write into
+ * @param regaddr Register address for the intended register to interact with after the write
  *
  */
 unsigned char CP2120_Write_Reg_I2C(unsigned char deviceaddr, unsigned char regaddr);
 
-/**@brief
+/**@brief Read I2C Register function (Low Level)
  *
+ *	Low level function used by higher level functions to Read bytes from an I2C bus device. Do not use unless you know what you are doing.
  *
- *
- * @param data_pointer
- * @param
+ * @param deviceaddr Address of the device to read from
+ * @param bmpbuffer Pointer to array to read into
+ * @param len Length of bytes to read from device
  *
  */
 unsigned char CP2120_Read_I2C_Reg(unsigned char deviceaddr, unsigned char *bmpbuffer, unsigned char len);
 
-/**@brief
+/**@brief Read I2C Register function (High Level)
  *
+ *	Higer level function to Read bytes from an I2C bus device.
  *
- *
- * @param data_pointer
- * @param
+ * @param devicereadaddr Address of the device to read from
+ * @param bytecount Length of bytes to read from device
  *
  */
 unsigned char CP2120_Read_Reg_I2C(unsigned char devicereadaddr, unsigned char bytecount);
 
-/**@brief
+/**@brief Read data from CP2120 RX data buffer
  *
+ * Reads data from the CP2120 reciever buffer.
  *
- *
- * @param data_pointer
- * @param
+ * @param buffer Pointer to buffer array to save recieved data read into
+ * @param bytecount Length in bytes to read
  *
  */
 unsigned char CP2120_Read_I2C_Buffer(unsigned char *buffer, unsigned char bytecount);

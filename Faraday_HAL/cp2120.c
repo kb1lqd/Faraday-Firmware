@@ -65,6 +65,8 @@ unsigned char CP2120_Write_Register(unsigned char addr, unsigned char value){
 	__delay_cycles(10000);
 
 	spi_disable_chip_select(SPI_HAL_CS_I2C);
+
+	return 1;
 }
 
 unsigned char CP2120_Read_Register(unsigned char addr){
@@ -106,7 +108,7 @@ unsigned char CP2120_Read_Version(void){
 	__no_operation();
 
 
-		return 1;
+	return 1;
 }
 
 unsigned char CP2120_Get_IOCONFIG(void){
