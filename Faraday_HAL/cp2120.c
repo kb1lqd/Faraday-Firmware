@@ -1,5 +1,5 @@
 /*
- * c2120.c
+ * CP2120.c
  *
  *  Created on: Sep 13, 2017
  *      Author: Brent
@@ -14,38 +14,38 @@
 #include "SPI.h"
 #include "../External_Sensors/bmp180.h"
 
-void test_c2120(void){
+void test_CP2120(void){
 	//SPI External Testing
 	volatile unsigned char testspi, cp2120i, rxbufi2c;
 
 	init_SPI_Clk_11();
 
-	testspi = C2120_Read_Register(0x00);
-	testspi = C2120_Read_Register(0x07);
-	C2120_Write_Register(0x00, 0xAA);
-	C2120_Write_Register(0x07, 0xAA);
+	testspi = CP2120_Read_Register(0x00);
+	testspi = CP2120_Read_Register(0x07);
+	CP2120_Write_Register(0x00, 0xAA);
+	CP2120_Write_Register(0x07, 0xAA);
 	/*
 	for(cp2120i=0;cp2120i<0xFF;cp2120i++){
-		C2120_Write_Register(0x01, cp2120i);
+		CP2120_Write_Register(0x01, cp2120i);
 		__delay_cycles(1000000);
 	}
 	*/
-	testspi = C2120_Read_Register(0x00);
-	testspi = C2120_Read_Register(0x07);
-	testspi = C2120_Read_Register(0x01);
+	testspi = CP2120_Read_Register(0x00);
+	testspi = CP2120_Read_Register(0x07);
+	testspi = CP2120_Read_Register(0x01);
 
-	testspi = C2120_Get_I2CTO2();
-	testspi = C2120_Get_I2CCLOCK();
-	testspi = C2120_Get_I2CTO();
-	testspi = C2120_Get_I2CSTAT();
-	testspi = C2120_Get_I2CADR();
-	testspi = C2120_Get_RXBUFF();
-	testspi = C2120_Get_IOCONFIG2();
-	testspi = C2120_Get_EDGEINT();
-	testspi = C2120_Get_I2CTO2();
+	testspi = CP2120_Get_I2CTO2();
+	testspi = CP2120_Get_I2CCLOCK();
+	testspi = CP2120_Get_I2CTO();
+	testspi = CP2120_Get_I2CSTAT();
+	testspi = CP2120_Get_I2CADR();
+	testspi = CP2120_Get_RXBUFF();
+	testspi = CP2120_Get_IOCONFIG2();
+	testspi = CP2120_Get_EDGEINT();
+	testspi = CP2120_Get_I2CTO2();
 
 	__no_operation();
-	C2120_Read_Version();
+	CP2120_Read_Version();
 	__no_operation();
 
 	volatile unsigned char bmpbuffer[32];
@@ -114,10 +114,10 @@ void test_c2120(void){
 
 }
 
-unsigned char C2120_Write_Register(unsigned char addr, unsigned char value){
+unsigned char CP2120_Write_Register(unsigned char addr, unsigned char value){
 	spi_enable_chip_select(SPI_HAL_CS_I2C);
 	//Send the WRITE command
-	spi_tx(C2120_CMD_WRITE_REG);
+	spi_tx(CP2120_CMD_WRITE_REG);
 	__delay_cycles(10000);
 	spi_tx(addr);
 	__delay_cycles(10000);
@@ -127,13 +127,13 @@ unsigned char C2120_Write_Register(unsigned char addr, unsigned char value){
 	spi_disable_chip_select(SPI_HAL_CS_I2C);
 }
 
-unsigned char C2120_Read_Register(unsigned char addr){
+unsigned char CP2120_Read_Register(unsigned char addr){
 	unsigned char readbyte;
 
 	spi_enable_chip_select(SPI_HAL_CS_I2C);
 
 	//Send the WRITE command
-	spi_tx(C2120_CMD_CONFIG);
+	spi_tx(CP2120_CMD_CONFIG);
 	spi_tx(addr);
 	spi_tx(SPI_DUMMY_BYTE);
 	spi_tx(SPI_DUMMY_BYTE);
@@ -148,12 +148,12 @@ unsigned char C2120_Read_Register(unsigned char addr){
 	//}
 }
 
-unsigned char C2120_Read_Version(void){
+unsigned char CP2120_Read_Version(void){
 	volatile unsigned char verbyteh, verbytel;
 
 	spi_enable_chip_select(SPI_HAL_CS_I2C);
 	//Send the WRITE command
-	spi_tx(C2120_CMD_VER);
+	spi_tx(CP2120_CMD_VER);
 	spi_tx(0x00);
 	spi_tx(SPI_DUMMY_BYTE);
 	__delay_cycles(SPI_BYTE_CYCLES*3);
@@ -169,74 +169,74 @@ unsigned char C2120_Read_Version(void){
 		return 1;
 }
 
-unsigned char C2120_Get_IOCONFIG(void){
-	return C2120_Read_Register(C2120_REG_IOCONFIG);
+unsigned char CP2120_Get_IOCONFIG(void){
+	return CP2120_Read_Register(CP2120_REG_IOCONFIG);
 }
 
-unsigned char C2120_Get_I2CCLOCK(void){
-	return C2120_Read_Register(C2120_REG_I2CCLOCK);
+unsigned char CP2120_Get_I2CCLOCK(void){
+	return CP2120_Read_Register(CP2120_REG_I2CCLOCK);
 }
 
-unsigned char C2120_Get_I2CTO(void){
-	return C2120_Read_Register(C2120_REG_I2CTO);
+unsigned char CP2120_Get_I2CTO(void){
+	return CP2120_Read_Register(CP2120_REG_I2CTO);
 }
 
-unsigned char C2120_Get_I2CSTAT(void){
-	return C2120_Read_Register(C2120_REG_I2CSTAT);
+unsigned char CP2120_Get_I2CSTAT(void){
+	return CP2120_Read_Register(CP2120_REG_I2CSTAT);
 }
 
-unsigned char C2120_Get_I2CADR(void){
-	return C2120_Read_Register(C2120_REG_I2CADR);
+unsigned char CP2120_Get_I2CADR(void){
+	return CP2120_Read_Register(CP2120_REG_I2CADR);
 }
 
-unsigned char C2120_Get_RXBUFF(void){
-	return C2120_Read_Register(C2120_REG_RXBUFF);
+unsigned char CP2120_Get_RXBUFF(void){
+	return CP2120_Read_Register(CP2120_REG_RXBUFF);
 }
 
-unsigned char C2120_Get_IOCONFIG2(void){
-	return C2120_Read_Register(C2120_REG_IOCONFIG2);
+unsigned char CP2120_Get_IOCONFIG2(void){
+	return CP2120_Read_Register(CP2120_REG_IOCONFIG2);
 }
 
-unsigned char C2120_Get_EDGEINT(void){
-	return C2120_Read_Register(C2120_REG_EDGEINT);
+unsigned char CP2120_Get_EDGEINT(void){
+	return CP2120_Read_Register(CP2120_REG_EDGEINT);
 }
 
-unsigned char C2120_Get_I2CTO2(void){
-	return C2120_Read_Register(C2120_REG_I2CTO2);
+unsigned char CP2120_Get_I2CTO2(void){
+	return CP2120_Read_Register(CP2120_REG_I2CTO2);
 }
 
 
 unsigned char CP2120_Write_I2C_Bytes(unsigned char *buffer, unsigned char len){
 	unsigned char testspi = 0x00;
-	C2120_Write_Bytes_I2C(buffer, len);
-	while(!(testspi==C2120_I2C_ACK)){
+	CP2120_Write_Bytes_I2C(buffer, len);
+	while(!(testspi==CP2120_I2C_ACK)){
 			__delay_cycles(SPI_BYTE_CYCLES);
-			testspi = C2120_Get_I2CSTAT();
+			testspi = CP2120_Get_I2CSTAT();
 			//If NAK received try again
-			if(testspi==C2120_I2C_SLAVE_ADDR_NAK){
-				C2120_Write_Bytes_I2C(buffer, len);
+			if(testspi==CP2120_I2C_SLAVE_ADDR_NAK){
+				CP2120_Write_Bytes_I2C(buffer, len);
 			}
 		}
 }
 
 unsigned char CP2120_Write_I2C_Reg(unsigned char devicewriteaddr, unsigned char regaddr){
 	unsigned char testspi = 0x00;
-	C2120_Write_Reg_I2C(devicewriteaddr, regaddr);
-	while(!(testspi==C2120_I2C_ACK)){
+	CP2120_Write_Reg_I2C(devicewriteaddr, regaddr);
+	while(!(testspi==CP2120_I2C_ACK)){
 			__delay_cycles(SPI_BYTE_CYCLES);
-			testspi = C2120_Get_I2CSTAT();
+			testspi = CP2120_Get_I2CSTAT();
 			//If NAK received try again
-			if(testspi==C2120_I2C_SLAVE_ADDR_NAK){
-				C2120_Write_Reg_I2C(devicewriteaddr, regaddr);
+			if(testspi==CP2120_I2C_SLAVE_ADDR_NAK){
+				CP2120_Write_Reg_I2C(devicewriteaddr, regaddr);
 			}
 		}
 }
 
-unsigned char C2120_Write_Bytes_I2C(unsigned char *bytes, unsigned char len){
+unsigned char CP2120_Write_Bytes_I2C(unsigned char *bytes, unsigned char len){
 	unsigned char i;
 	spi_enable_chip_select(SPI_HAL_CS_I2C);
 	//Send the WRITE command
-	spi_tx(C2120_I2C_WRITE);
+	spi_tx(CP2120_I2C_WRITE);
 	spi_tx(len); // length of bytes to write over I2C (starting with device address)
 	for(i==0; i<len; i++){
 		spi_tx(bytes[i]);
@@ -248,11 +248,11 @@ unsigned char C2120_Write_Bytes_I2C(unsigned char *bytes, unsigned char len){
 	return 1;
 }
 
-unsigned char C2120_Write_Reg_I2C(unsigned char devicewriteaddr, unsigned char regaddr){
+unsigned char CP2120_Write_Reg_I2C(unsigned char devicewriteaddr, unsigned char regaddr){
 
 	spi_enable_chip_select(SPI_HAL_CS_I2C);
 	//Send the WRITE command
-	spi_tx(C2120_I2C_WRITE);
+	spi_tx(CP2120_I2C_WRITE);
 	spi_tx(0x02); // 2 bytes to write [DEVICE ADDR, DEVICE REGISTER]
 	spi_tx(devicewriteaddr);
 	spi_tx(regaddr);
@@ -264,22 +264,22 @@ unsigned char C2120_Write_Reg_I2C(unsigned char devicewriteaddr, unsigned char r
 
 unsigned char CP2120_Read_I2C_Reg(unsigned char deviceaddr, unsigned char *bmpbuffer, unsigned char len){
 	unsigned char testspi = 0x00;
-	C2120_Read_Reg_I2C(deviceaddr, len);
+	CP2120_Read_Reg_I2C(deviceaddr, len);
 
-	while(!(testspi==C2120_I2C_ACK)){
+	while(!(testspi==CP2120_I2C_ACK)){
 			__delay_cycles(SPI_BYTE_CYCLES);
-			testspi = C2120_Get_I2CSTAT();
+			testspi = CP2120_Get_I2CSTAT();
 		}
 
-	C2120_Read_I2C_Buffer(bmpbuffer, len);
+	CP2120_Read_I2C_Buffer(bmpbuffer, len);
 }
 
-unsigned char C2120_Read_Reg_I2C(unsigned char devicereadaddr, unsigned char bytecount){
+unsigned char CP2120_Read_Reg_I2C(unsigned char devicereadaddr, unsigned char bytecount){
 	volatile unsigned char verbyteh, verbytel;
 
 	spi_enable_chip_select(SPI_HAL_CS_I2C);
 	//Send the WRITE command
-	spi_tx(C2120_I2C_READ);
+	spi_tx(CP2120_I2C_READ);
 	spi_tx(bytecount);
 	spi_tx(devicereadaddr);
 	__delay_cycles(SPI_BYTE_CYCLES*4);
@@ -289,14 +289,14 @@ unsigned char C2120_Read_Reg_I2C(unsigned char devicereadaddr, unsigned char byt
 	return 1;
 }
 
-unsigned char C2120_Read_I2C_Buffer(unsigned char *buffer, unsigned char bytecount){
+unsigned char CP2120_Read_I2C_Buffer(unsigned char *buffer, unsigned char bytecount){
 	//Make multiple byte capable!
 	unsigned char readbyte, i;
 
 	spi_enable_chip_select(SPI_HAL_CS_I2C);
 	__delay_cycles(SPI_BYTE_CYCLES);
 	//Send the WRITE command
-	spi_tx(C2120_REG_RXBUFF);
+	spi_tx(CP2120_REG_RXBUFF);
 	spi_tx(SPI_DUMMY_BYTE);
 	//__delay_cycles(SPI_BYTE_CYCLES*2);
 	for(i=0; i<bytecount; i++){

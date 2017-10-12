@@ -94,7 +94,7 @@ int main(void) {
 	//SPI - Toggle SRAM (Prevent low MISO impedance Github firmware issue #80)
 	Faraday_SRAM_Toggle_CS();
 
-	test_c2120();
+	test_CP2120();
 	init_SPI_Clk_10();
 
 	//test_1();

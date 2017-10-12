@@ -54,7 +54,7 @@ unsigned char spi_enable_chip_select(unsigned char SPI_HAL_CS){
 			Faraday_SRAM_CS_Enable();
 			break;
 		case SPI_HAL_CS_I2C: // SPI to I2C
-			Faraday_C2120_CS_Enable();
+			Faraday_CP2120_CS_Enable();
 			break;
 		default: //Default - Should NEVER get here
 			__no_operation();
@@ -79,7 +79,7 @@ unsigned char spi_disable_chip_select(unsigned char SPI_HAL_CS){
 			Faraday_SRAM_CS_Disable();
 			break;
 		case SPI_HAL_CS_I2C: // SPI to I2C
-			Faraday_C2120_CS_Disable();
+			Faraday_CP2120_CS_Disable();
 			break;
 		default: //Default - Should NEVER get here
 			__no_operation();
@@ -118,12 +118,12 @@ void Faraday_SRAM_Hold_Disable(void){
 	P5OUT |= SRAM_HOLD;
 }
 
-void Faraday_C2120_CS_Enable(void){
+void Faraday_CP2120_CS_Enable(void){
 	//Active LOW
-	P1OUT &= ~C2120_SPI_CS;
+	P1OUT &= ~CP2120_SPI_CS;
 }
 
-void Faraday_C2120_CS_Disable(void){
+void Faraday_CP2120_CS_Disable(void){
 	//Active LOW
-	P1OUT |= C2120_SPI_CS;
+	P1OUT |= CP2120_SPI_CS;
 }
