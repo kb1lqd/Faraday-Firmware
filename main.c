@@ -24,6 +24,7 @@
 #include "Applications/HAB/App_HAB.h"
 #include "Applications/RF_Packet/rf_packet.h"
 #include "Faraday_HAL/cp2120.h"
+#include "External_Sensors/bmp180.h"
 
 #include "Scratch/scratch_sram.h"
 #include "Faraday_HAL/SPI.h"
@@ -95,6 +96,7 @@ int main(void) {
 	Faraday_SRAM_Toggle_CS();
 
 	test_CP2120();
+	BMP180_Test();
 	init_SPI_Clk_10();
 
 	//test_1();
