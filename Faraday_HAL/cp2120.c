@@ -6,7 +6,6 @@
  * 	USCI modes. Do note that the SPI phase/polarity needs to be "11" configuration to use this
  * 	module.
  *
- * 	@todo Update MAX_CONFIGURATION_UPDATE_PACKET_LEN to implement Device_Configuration application
  */
 
 /* -- Includes -- */
