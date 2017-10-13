@@ -1,10 +1,18 @@
-/*
- * bmp180.c
+/** @file bmp180.c
+ * 	@brief Provides a library to interact with the BMP180 I2C module
  *
- *  Created on: Sep 18, 2017
- *      Author: Brent
+ * 	This program provides an interface library to interact with the BMP180
+ * 	I2C module. This is a barometric pressure and temperature sensor module.
+ *
  */
+
+
+/* -- Includes -- */
+
+/* standard includes */
 #include "bmp180.h"
+
+/* SPI to I2C interface includes */
 #include "../Faraday_HAL/cp2120.h";
 
 void BMP180_Test(void){
