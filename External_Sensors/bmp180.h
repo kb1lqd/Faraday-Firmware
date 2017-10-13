@@ -1,8 +1,9 @@
-/*
- * bmp180.h
+/** @file bmp180.h
+ * 	@brief Provides a library to interact with the BMP180 I2C module
  *
- *  Created on: Sep 18, 2017
- *      Author: Brent
+ * 	This program provides an interface library to interact with the BMP180
+ * 	I2C module. This is a barometric pressure and temperature sensor module.
+ *
  */
 
 #ifndef EXTERNAL_SENSORS_BMP180_H_
