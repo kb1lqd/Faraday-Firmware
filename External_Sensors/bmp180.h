@@ -60,6 +60,16 @@
  */
 void BMP180_Test(void);
 
+/**@brief Get BMP180 device raw temperature
+ *
+ * Get BMP180 device temperature value from device. This returns the uncalibration raw
+ * temperature.
+ *
+ * @return bmp_180_temp Unsigned integer of the device's temperature value.
+ *
+ */
+unsigned int BMP180_Get_Temp_Raw(void);
+
 /**@brief Get BMP180 device calibration values from device
  *
  * Get BMP180 device calibration values from device. This function returns a single calibration integer
