@@ -26,6 +26,8 @@
 #include "Faraday_HAL/SPI.h"
 #include "SRAM/SRAM.h"
 
+#include "External_Devices/cp2120.h"
+
 
 //DELETE ME
 //#include "scratch_flash.h"
@@ -94,6 +96,9 @@ int main(void) {
 
 	//SPI - Toggle SRAM (Prevent low MISO impedance Github firmware issue #80)
 	Faraday_SRAM_Toggle_CS();
+
+	// Test CP2120
+	test_CP2120();
 
 	//Ensure SPI configuration setup for SRAM operation
 	init_SPI_Clk_10();

@@ -13,9 +13,10 @@
 /* standard includes */
 #include "cp2120.h"
 #include "cc430f6137.h"
+#include "../Faraday_Init.h"
 
 /* USCI includes */
-#include "SPI.h"
+#include "../Faraday_HAL/SPI.h"
 //#include "../External_Sensors/bmp180.h"
 
 void test_CP2120(void){
@@ -28,12 +29,12 @@ void test_CP2120(void){
 	testspi = CP2120_Read_Register(0x07);
 	CP2120_Write_Register(0x00, 0xAA);
 	CP2120_Write_Register(0x07, 0xAA);
-	/*
+
 	for(cp2120i=0;cp2120i<0xFF;cp2120i++){
 		CP2120_Write_Register(0x01, cp2120i);
-		__delay_cycles(1000000);
+		__delay_cycles(100000);
 	}
-	*/
+
 	testspi = CP2120_Read_Register(0x00);
 	testspi = CP2120_Read_Register(0x07);
 	testspi = CP2120_Read_Register(0x01);
