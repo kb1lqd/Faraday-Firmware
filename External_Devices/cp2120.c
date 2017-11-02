@@ -152,27 +152,27 @@ unsigned char CP2120_Get_I2CTO2(void){
 unsigned char CP2120_Write_I2C_Bytes(unsigned char *buffer, unsigned char len){
 	unsigned char testspi = 0x00;
 	CP2120_Write_Bytes_I2C(buffer, len);
-	while(!(testspi==CP2120_I2C_ACK)){
+	/*while(!(testspi==CP2120_I2C_ACK)){
 			__delay_cycles(SPI_BYTE_CYCLES);
 			testspi = CP2120_Get_I2CSTAT();
 			//If NAK received try again
 			if(testspi==CP2120_I2C_SLAVE_ADDR_NAK){
 				CP2120_Write_Bytes_I2C(buffer, len);
 			}
-		}
+		}*/
 }
 
 unsigned char CP2120_Write_I2C_Reg(unsigned char devicewriteaddr, unsigned char regaddr){
 	unsigned char testspi = 0x00;
 	CP2120_Write_Reg_I2C(devicewriteaddr, regaddr);
-	while(!(testspi==CP2120_I2C_ACK)){
+	/*while(!(testspi==CP2120_I2C_ACK)){
 			__delay_cycles(SPI_BYTE_CYCLES);
 			testspi = CP2120_Get_I2CSTAT();
 			//If NAK received try again
 			if(testspi==CP2120_I2C_SLAVE_ADDR_NAK){
 				CP2120_Write_Reg_I2C(devicewriteaddr, regaddr);
 			}
-		}
+		}*/
 }
 
 unsigned char CP2120_Write_Bytes_I2C(unsigned char *bytes, unsigned char len){
@@ -209,10 +209,11 @@ unsigned char CP2120_Read_I2C_Reg(unsigned char deviceaddr, unsigned char *bmpbu
 	unsigned char testspi = 0x00;
 	CP2120_Read_Reg_I2C(deviceaddr, len);
 
-	while(!(testspi==CP2120_I2C_ACK)){
+	/*while(!(testspi==CP2120_I2C_ACK)){
 			__delay_cycles(SPI_BYTE_CYCLES);
 			testspi = CP2120_Get_I2CSTAT();
-		}
+		}*/
+	_delay_cycles(SPI_BYTE_CYCLES*10);
 
 	CP2120_Read_I2C_Buffer(bmpbuffer, len);
 }

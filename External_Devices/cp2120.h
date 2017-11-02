@@ -47,7 +47,7 @@
 #define CP2120_I2C_TIMEOUT 0xF8 /**< I2C Transaction timed out */
 #define CP2120_I2C_TXRXOVERFLOW 0xF9 /**< Command’s Bytes to Transmit Byte and Data Buffer Size do not match, or Read Buffer read number of bytes greater than buffer count. */
 #define CP2120_I2C_SCLLOW 0xFA /**< I2C SCL Low time-out, using timer configured in I2CTO2. */
-#define CP2120_I2C_BUSNOTFREE /**< I2C bus free detect has been disabled, and the bus is not free. */
+#define CP2120_I2C_BUSNOTFREE 0xFB/**< I2C bus free detect has been disabled, and the bus is not free. */
 /** @}*/
 
 /** @name CP2120 I2C READ/WRITE Commands

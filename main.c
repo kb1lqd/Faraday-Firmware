@@ -27,6 +27,7 @@
 #include "SRAM/SRAM.h"
 
 #include "External_Devices/cp2120.h"
+#include "External_Devices/lsm303.h"
 
 
 //DELETE ME
@@ -99,6 +100,9 @@ int main(void) {
 
 	// Test CP2120
 	test_CP2120();
+
+	// Test LSM303 Compass/Accel
+	lsm303_test();
 
 	//Ensure SPI configuration setup for SRAM operation
 	init_SPI_Clk_10();
