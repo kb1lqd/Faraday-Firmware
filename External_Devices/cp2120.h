@@ -176,9 +176,10 @@ unsigned char CP2120_Get_EDGEINT(void);
  *
  * @param buffer Pointer to the array to write
  * @param len Length of data in bytes to write
+ * @param getack_flag When not 0x00 this forces the function to wait for ACK from I2C device
  *
  */
-unsigned char CP2120_Write_I2C_Bytes(unsigned char *buffer, unsigned char len);
+unsigned char CP2120_Write_I2C_Bytes(unsigned char *buffer, unsigned char len, unsigned char getack_flag);
 
 /**@brief Write bytearray over I2C
  *
@@ -206,9 +207,10 @@ unsigned char CP2120_Write_Reg(unsigned char devicewriteaddr, unsigned char rega
  *
  * @param deviceaddr Address of the device to write into
  * @param regaddr Register address for the intended register to interact with after the write
+ * @param getack_flag When not 0x00 this forces the function to wait for ACK from I2C device
  *
  */
-unsigned char CP2120_Write_Reg_I2C(unsigned char deviceaddr, unsigned char regaddr);
+unsigned char CP2120_Write_I2C_Reg(unsigned char devicewriteaddr, unsigned char regaddr, unsigned char getack_flag);
 
 /**@brief Read I2C Register function (Low Level)
  *
@@ -217,9 +219,10 @@ unsigned char CP2120_Write_Reg_I2C(unsigned char deviceaddr, unsigned char regad
  * @param deviceaddr Address of the device to read from
  * @param bmpbuffer Pointer to array to read into
  * @param len Length of bytes to read from device
+ * @param getack_flag When not 0x00 this forces the function to wait for ACK from I2C device
  *
  */
-unsigned char CP2120_Read_I2C_Reg(unsigned char deviceaddr, unsigned char *bmpbuffer, unsigned char len);
+unsigned char CP2120_Read_I2C_Reg(unsigned char deviceaddr, unsigned char *bmpbuffer, unsigned char len, unsigned char getack_flag);
 
 /**@brief Read I2C Register function (High Level)
  *
